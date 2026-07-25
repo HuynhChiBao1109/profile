@@ -13,9 +13,9 @@ FROM nginx:1.27-alpine AS production
 COPY deploy/nginx/container.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 80 443
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://127.0.0.1/ || exit 1
+  CMD wget --quiet --tries=1 --spider http://127.0.0.1/healthz || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]

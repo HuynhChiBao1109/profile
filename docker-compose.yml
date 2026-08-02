@@ -7,13 +7,9 @@ services:
     image: baohc-profile:latest
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-      - "1109:80"
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - "1109:1109"
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1/healthz"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:1109/"]
       interval: 30s
       timeout: 5s
       retries: 3

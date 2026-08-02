@@ -8,14 +8,21 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM nginx:1.27-alpine AS production
+FROM node:22-alpine AS production
 
-COPY deploy/nginx/container.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/dist /usr/share/nginx/html
+WORKDIR /app
 
-EXPOSE 80 443
+ENV NODE_ENV=production
+
+COPY --from=builder --chown=node:node /app/package.json /app/package-lock.json ./
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/dist ./dist
+
+USER node
+
+EXPOSE 1109
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://127.0.0.1/healthz || exit 1
+  CMD wget --quiet --tries=1 --spider http://127.0.0.1:1109/ || exit 1
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]

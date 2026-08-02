@@ -2,13 +2,21 @@ import { useEffect, useState } from "react";
 import {
   ArrowDownRight,
   ArrowUpRight,
+  Award,
   Check,
   ChevronRight,
   Copy,
+  Download,
   Github,
+  MapPinned,
   Mail,
   MapPin,
   Menu,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  Trophy,
+  Utensils,
   X,
 } from "lucide-react";
 import "./App.css";
@@ -16,6 +24,7 @@ import "./App.css";
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
+  { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
@@ -23,23 +32,99 @@ const navItems = [
 const skills = [
   {
     number: "01",
-    title: "Backend",
-    items: ["NestJS", "Express.js", "Golang", "GraphQL", "Socket.IO", "gRPC"],
+    title: "JavaScript",
+    focus: "Runtime & events",
+    description:
+      "Strong command of core language fundamentals, the event loop, asynchronous execution, and advanced event and process handling.",
+    concepts: ["Core language", "Event loop", "Async processing", "Event handling"],
   },
   {
     number: "02",
-    title: "Data",
-    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Prisma", "RabbitMQ"],
+    title: "TypeScript",
+    focus: "OOP & type safety",
+    description:
+      "Comfortable applying object-oriented programming and TypeScript's type system to build clear, maintainable application structures.",
+    concepts: ["OOP", "Type modeling", "Interfaces", "Maintainability"],
   },
   {
     number: "03",
-    title: "Infrastructure",
-    items: ["Docker", "Kubernetes", "AWS", "GCP", "Linux", "PM2"],
+    title: "NestJS",
+    focus: "Backend architecture",
+    description:
+      "Builds modular backend applications with SOLID principles and dependency injection, keeping services independent and testable.",
+    concepts: ["SOLID", "Dependency injection", "Modules", "Service design"],
   },
   {
     number: "04",
-    title: "Frontend",
-    items: ["React.js", "TypeScript", "JavaScript", "Firebase", "REST API"],
+    title: "React.js",
+    focus: "UI development",
+    description:
+      "Hands-on since university, mainly focused on UI development with a practical understanding of the DOM, components, state, and Redux.",
+    concepts: ["DOM", "Components", "State", "Redux"],
+  },
+  {
+    number: "05",
+    title: "MySQL",
+    focus: "Database internals",
+    description:
+      "Deep experience with indexing and leftmost-prefix rules, binary logs, log storage, and connection pools—including a 13 GB database with 10M+ records.",
+    concepts: ["Indexing", "Binary log", "Connection pools", "10M+ records"],
+  },
+  {
+    number: "06",
+    title: "PostgreSQL",
+    focus: "Query execution",
+    description:
+      "Understands how queries flow through parsing, planning, and execution, with attention to how operations use memory at runtime.",
+    concepts: ["Query planning", "Execution flow", "Memory usage", "SQL"],
+  },
+  {
+    number: "07",
+    title: "MongoDB",
+    focus: "Document modeling",
+    description:
+      "Understands JSON-like documents, collections, and when document storage fits a project, with hands-on multi-collection experience.",
+    concepts: ["Documents", "Collections", "Data modeling", "Multi-collection"],
+  },
+  {
+    number: "08",
+    title: "Redis",
+    focus: "Distributed coordination",
+    description:
+      "Uses core Redis commands, Pub/Sub for socket systems, and Redlock-based leader election for cron jobs across multi-process environments.",
+    concepts: ["Pub/Sub", "Socket systems", "Redlock", "Leader election"],
+  },
+  {
+    number: "09",
+    title: "RabbitMQ",
+    focus: "Message queues",
+    description:
+      "Foundational hands-on experience creating queues and implementing producer-consumer flows for asynchronous task processing.",
+    concepts: ["Queues", "Producers", "Consumers", "Async tasks"],
+  },
+  {
+    number: "10",
+    title: "Kafka",
+    focus: "Event streaming",
+    description:
+      "Foundational experience setting up topics and implementing producer-consumer message processing workflows.",
+    concepts: ["Topics", "Producers", "Consumers", "Message processing"],
+  },
+  {
+    number: "11",
+    title: "Kubernetes",
+    focus: "Orchestration basics",
+    description:
+      "Completed practical labs and understands core container orchestration concepts including Pods, Deployments, and Services.",
+    concepts: ["Pods", "Deployments", "Services", "Container orchestration"],
+  },
+  {
+    number: "12",
+    title: "AWS",
+    focus: "Cloud infrastructure",
+    description:
+      "Hands-on experience using AWS services for application infrastructure, particularly EC2 compute and RDS managed databases.",
+    concepts: ["EC2", "RDS", "Compute", "Managed databases"],
   },
 ];
 
@@ -125,6 +210,15 @@ function App() {
               <span>Software Engineer</span>
               <small>Ho Chi Minh City</small>
             </div>
+            <a
+              className="cv-download"
+              href="/Huỳnh Chí Bảo - CV.pdf"
+              download="Huynh-Chi-Bao-CV.pdf"
+              aria-label="Download Huynh Chi Bao's CV"
+            >
+              <Download size={15} />
+              Download CV
+            </a>
           </div>
           <div className="orbit-badge">
             <span>1+</span>
@@ -135,7 +229,7 @@ function App() {
         <div className="hero-bottom">
           <span>Scroll to explore</span>
           <div className="scroll-line" />
-          <span className="hero-index">01 / 04</span>
+          <span className="hero-index">01 / 05</span>
         </div>
       </section>
 
@@ -239,23 +333,107 @@ function App() {
         </article>
       </section>
 
-      <section className="skills section" id="skills">
+      <section className="projects section" id="projects">
         <div className="section-label reveal">
           <span>03</span>
-          <p>Technical toolkit</p>
+          <p>Personal projects</p>
+        </div>
+
+        <div className="projects-heading reveal">
+          <p className="eyebrow"><span /> Currently building</p>
+          <h2>
+            Ideas turned into<br /><em>real products.</em>
+          </h2>
+        </div>
+
+        <div className="project-grid">
+          <article className="project-card food-project reveal">
+            <div className="project-card-top">
+              <span className="project-number">01</span>
+              <span className="project-status"><i /> Releasing 11 Sep 2026</span>
+            </div>
+
+            <div className="project-visual food-visual" aria-hidden="true">
+              <div className="phone-shell">
+                <div className="phone-bar" />
+                <Utensils size={34} />
+                <span>Hôm nay<br />ăn gì?</span>
+              </div>
+              <MapPinned className="visual-icon map-icon" size={42} />
+              <span className="location-dot dot-one" />
+              <span className="location-dot dot-two" />
+              <span className="location-dot dot-three" />
+            </div>
+
+            <div className="project-content">
+              <div className="project-type"><Smartphone size={15} /> Mobile application</div>
+              <h3>BAO FOR FOOD</h3>
+              <p className="project-subtitle">Hôm nay ăn gì?</p>
+              <p>
+                A mobile app that takes the friction out of choosing what to eat by
+                suggesting dishes and nearby restaurants based on the user's location.
+              </p>
+              <div className="project-features">
+                <span><Sparkles size={14} /> Smart dish suggestions</span>
+                <span><MapPin size={14} /> Nearby restaurants</span>
+              </div>
+            </div>
+          </article>
+
+          <article className="project-card redlock-project reveal">
+            <div className="project-card-top">
+              <span className="project-number">02</span>
+              <span className="project-status planned"><i /> NFT roadmap · Sep 2026</span>
+            </div>
+
+            <div className="project-visual redlock-visual" aria-hidden="true">
+              <div className="pitch-lines">
+                <span className="player p-one" />
+                <span className="player p-two" />
+                <span className="player p-three" />
+                <span className="player p-four" />
+                <span className="strategy-line line-one" />
+                <span className="strategy-line line-two" />
+              </div>
+              <div className="trophy-mark"><Trophy size={34} /></div>
+            </div>
+
+            <div className="project-content">
+              <div className="project-type"><ShieldCheck size={15} /> AI football simulation</div>
+              <h3>REDLOCK 1</h3>
+              <p className="project-subtitle">Outthink. Outplay. Win.</p>
+              <p>
+                A strategy-first football simulation where tactical decisions and AI
+                shape every match, with NFT integration planned for the next phase.
+              </p>
+              <div className="project-features">
+                <span><Sparkles size={14} /> AI-driven matches</span>
+                <span><Trophy size={14} /> Tactical gameplay</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="skills section" id="skills">
+        <div className="section-label reveal">
+          <span>04</span>
+          <p>Technical depth</p>
         </div>
         <div className="skills-heading reveal">
-          <h2>Built with the right tools,<br /><span>driven by fundamentals.</span></h2>
+          <h2>Knowledge built through<br /><span>real systems and practice.</span></h2>
         </div>
         <div className="skill-grid">
           {skills.map((skill) => (
             <article className="skill-card reveal" key={skill.title}>
               <div className="skill-card-head">
                 <span>{skill.number}</span>
-                <h3>{skill.title}</h3>
+                <p>{skill.focus}</p>
               </div>
-              <div className="skill-list">
-                {skill.items.map((item) => <span key={item}>{item}</span>)}
+              <h3>{skill.title}</h3>
+              <p className="skill-description">{skill.description}</p>
+              <div className="skill-concepts">
+                {skill.concepts.map((concept) => <span key={concept}>{concept}</span>)}
               </div>
             </article>
           ))}
@@ -264,7 +442,7 @@ function App() {
 
       <section className="education section">
         <div className="section-label reveal">
-          <span>04</span>
+          <span>05</span>
           <p>Education</p>
         </div>
         <div className="education-card reveal">
@@ -278,6 +456,40 @@ function App() {
           </div>
           <div className="edu-mark">FPT</div>
         </div>
+
+        <article className="certificate-card reveal">
+          <a
+            className="certificate-preview"
+            href="/philosophy-talk-12-certificate-restored.png"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="View Philosophy Talk 12 certificate"
+          >
+            <img
+              src="/philosophy-talk-12-certificate-restored.png"
+              alt="Philosophy Talk 12 certificate awarded to Huynh Chi Bao by FPT University"
+              width="1448"
+              height="1086"
+              loading="lazy"
+              decoding="async"
+            />
+            <span>View full certificate <ArrowUpRight size={15} /></span>
+          </a>
+
+          <div className="certificate-content">
+            <div className="certificate-icon"><Award size={22} /></div>
+            <p className="certificate-label">Certificate · FPT University</p>
+            <h3>Philosophy<br />Talk 12</h3>
+            <p className="certificate-description">
+              Recognized for delivering a meaningful presentation and fostering a
+              profound love of philosophy during the Summer 2024 term.
+            </p>
+            <div className="certificate-meta">
+              <span>17 Jun 2024</span>
+              <span>FPT University HCMC</span>
+            </div>
+          </div>
+        </article>
       </section>
 
       <section className="contact section" id="contact">

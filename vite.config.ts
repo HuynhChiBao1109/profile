@@ -13,6 +13,7 @@ export default defineConfig({
   preview: {
     host: "127.0.0.1",
     port: 1109,
+    allowedHosts: ["profile.b4f.site"],
   },
   resolve: {
     alias: {

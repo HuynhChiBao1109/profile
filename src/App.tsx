@@ -270,7 +270,7 @@ function App() {
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-copy reveal">
           <p className="eyebrow">
-            <span /> Backend &amp; Server Engineer
+            <span /> Backend &amp; DevOps Engineer
           </p>
           <h1>
             Server systems

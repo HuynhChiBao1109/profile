@@ -67,7 +67,7 @@ button {
 }
 
 .nav a,
-.header-cta {
+.header-links a {
   color: #b8bbb5;
   font: 500 12px/1 "DM Mono", monospace;
   letter-spacing: 0.05em;
@@ -76,15 +76,27 @@ button {
 }
 
 .nav a:hover,
-.header-cta:hover {
+.header-links a:hover {
   color: var(--lime);
 }
 
-.header-cta {
+.header-links {
   align-items: center;
   display: flex;
-  gap: 6px;
+  gap: 20px;
   justify-self: end;
+}
+
+.header-links a {
+  align-items: center;
+  display: inline-flex;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.header-links a + a {
+  border-left: 1px solid var(--line);
+  padding-left: 20px;
 }
 
 .menu-button {
@@ -159,10 +171,27 @@ button {
   font-weight: 600;
 }
 
+.hero-focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.hero-focus span {
+  border: 1px solid #343833;
+  color: #aeb3aa;
+  font: 500 9px/1 "DM Mono", monospace;
+  letter-spacing: 0.05em;
+  padding: 9px 10px;
+  text-transform: uppercase;
+}
+
 .hero-actions {
   align-items: center;
   display: flex;
-  gap: 30px;
+  flex-wrap: wrap;
+  gap: 20px 26px;
   margin-top: 38px;
 }
 
@@ -197,6 +226,12 @@ button {
   display: inline-flex;
   font: 500 13px/1 "Manrope", sans-serif;
   gap: 7px;
+  transition: color 180ms ease;
+  white-space: nowrap;
+}
+
+.text-link:hover {
+  color: var(--lime);
 }
 
 .text-link svg:last-child {
@@ -562,6 +597,16 @@ button {
   transform: translateY(-5px);
 }
 
+.project-card[href] {
+  cursor: pointer;
+}
+
+.project-card[href]:focus-visible {
+  border-color: var(--lime);
+  outline: 2px solid var(--lime);
+  outline-offset: 4px;
+}
+
 .project-card-top {
   align-items: center;
   display: flex;
@@ -608,78 +653,6 @@ button {
   position: relative;
 }
 
-.food-visual {
-  background-color: #c3f95d;
-  background-image: radial-gradient(rgba(17, 19, 15, 0.16) 1px, transparent 1px);
-  background-size: 18px 18px;
-}
-
-.food-visual::before,
-.food-visual::after {
-  border: 1px solid rgba(17, 19, 15, 0.16);
-  border-radius: 50%;
-  content: "";
-  position: absolute;
-}
-
-.food-visual::before {
-  height: 280px;
-  right: -100px;
-  top: -55px;
-  width: 280px;
-}
-
-.food-visual::after {
-  bottom: -105px;
-  height: 225px;
-  left: -75px;
-  width: 225px;
-}
-
-.phone-shell {
-  align-items: center;
-  background: #11130f;
-  border: 5px solid #2b2e28;
-  border-radius: 24px 24px 0 0;
-  bottom: -30px;
-  box-shadow: 0 24px 50px rgba(17, 19, 15, 0.28);
-  color: var(--lime);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  height: 260px;
-  justify-content: center;
-  left: 50%;
-  position: absolute;
-  transform: rotate(-5deg) translateX(-50%);
-  width: 154px;
-  z-index: 2;
-}
-
-.phone-shell span {
-  color: var(--text);
-  font: 600 20px/1.05 "Manrope", sans-serif;
-  letter-spacing: -0.04em;
-  text-align: center;
-}
-
-.phone-bar {
-  background: #363a32;
-  border-radius: 20px;
-  height: 5px;
-  position: absolute;
-  top: 10px;
-  width: 45px;
-}
-
-.visual-icon.map-icon {
-  color: #11130f;
-  position: absolute;
-  right: 9%;
-  top: 29px;
-}
-
-.location-dot,
 .player {
   background: #11130f;
   border-radius: 50%;
@@ -688,9 +661,123 @@ button {
   width: 10px;
 }
 
-.dot-one { left: 10%; top: 19%; }
-.dot-two { bottom: 18%; right: 13%; }
-.dot-three { bottom: 13%; left: 19%; }
+.food-gallery {
+  background-color: #b8ef55;
+  background-image: radial-gradient(rgba(17, 19, 15, 0.15) 1px, transparent 1px);
+  background-size: 18px 18px;
+  height: 285px;
+  margin: 0 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.food-gallery-toolbar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  left: 14px;
+  position: absolute;
+  right: 14px;
+  top: 11px;
+  z-index: 2;
+}
+
+.food-gallery-toolbar > span {
+  color: #273313;
+  font: 500 8px/1 "DM Mono", monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.food-gallery-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.food-gallery-controls button {
+  align-items: center;
+  background: #11130f;
+  border: 0;
+  border-radius: 50%;
+  color: var(--lime);
+  cursor: pointer;
+  display: flex;
+  height: 28px;
+  justify-content: center;
+  padding: 0;
+  transition: background 180ms ease, transform 180ms ease;
+  width: 28px;
+}
+
+.food-gallery-controls button:hover {
+  background: #28331a;
+  transform: translateY(-1px);
+}
+
+.food-gallery-track {
+  display: flex;
+  gap: 10px;
+  height: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding: 48px 14px 13px;
+  scroll-behavior: smooth;
+  scroll-padding-inline: 14px;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: rgba(17, 19, 15, 0.45) transparent;
+  scrollbar-width: thin;
+}
+
+.food-gallery-track:focus-visible {
+  outline: 2px solid #11130f;
+  outline-offset: -3px;
+}
+
+.food-gallery-slide {
+  align-items: center;
+  background: rgba(245, 250, 238, 0.96);
+  border: 1px solid rgba(17, 19, 15, 0.14);
+  border-radius: 12px;
+  display: flex;
+  flex: 0 0 58%;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: start;
+}
+
+.food-gallery-slide img {
+  height: 100%;
+  object-fit: contain;
+  transition: transform 240ms ease;
+  user-select: none;
+  width: 100%;
+}
+
+.food-gallery-slide:hover img {
+  transform: scale(1.025);
+}
+
+.food-gallery-slide > span {
+  align-items: center;
+  background: rgba(17, 19, 15, 0.88);
+  bottom: 7px;
+  color: #eef0e9;
+  display: flex;
+  font: 500 8px/1 "DM Mono", monospace;
+  gap: 7px;
+  left: 7px;
+  letter-spacing: 0.04em;
+  padding: 7px 9px;
+  position: absolute;
+  text-transform: uppercase;
+}
+
+.food-gallery-slide > span i {
+  color: var(--lime);
+  font-style: normal;
+}
 
 .redlock-visual {
   background: #181b19;
@@ -840,6 +927,35 @@ button {
 
 .project-features svg {
   color: var(--lime);
+}
+
+.project-release {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.project-release > span {
+  color: var(--text);
+  font: 500 10px/1 "DM Mono", monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.project-release > div {
+  display: flex;
+  gap: 6px;
+}
+
+.project-release > div span {
+  border: 1px solid #3b4039;
+  color: #aeb3aa;
+  font: 500 8px/1 "DM Mono", monospace;
+  padding: 7px 8px;
+  text-transform: uppercase;
 }
 
 .skills-heading {
@@ -1203,7 +1319,7 @@ footer > div {
     grid-template-columns: 1fr auto;
   }
 
-  .header-cta {
+  .header-links {
     display: none;
   }
 
@@ -1374,8 +1490,22 @@ footer > div {
     height: 245px;
   }
 
+  .food-gallery {
+    height: 300px;
+  }
+
+  .food-gallery-slide {
+    flex-basis: 72%;
+  }
+
   .project-content {
     padding: 28px 22px 30px;
+  }
+
+  .project-release {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
   }
 
   .skill-grid {

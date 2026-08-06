@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowDownRight,
+  ArrowLeft,
+  ArrowRight,
   ArrowUpRight,
   Award,
   Check,
@@ -8,15 +10,14 @@ import {
   Copy,
   Download,
   Github,
-  MapPinned,
   Mail,
   MapPin,
   Menu,
+  Phone,
   ShieldCheck,
   Smartphone,
   Sparkles,
   Trophy,
-  Utensils,
   X,
 } from "lucide-react";
 import "./App.css";
@@ -27,6 +28,24 @@ const navItems = [
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
+];
+
+const baoForFoodScreens = [
+  {
+    src: "/project/baoforfood/login.jpg",
+    alt: "BAO FOR FOOD login screen",
+    label: "Account access",
+  },
+  {
+    src: "/project/baoforfood/main2.jpg",
+    alt: "BAO FOR FOOD home screen asking what to eat today",
+    label: "Dish discovery",
+  },
+  {
+    src: "/project/baoforfood/main.jpg",
+    alt: "BAO FOR FOOD dish suggestion loading screen",
+    label: "Smart suggestions",
+  },
 ];
 
 const skills = [
@@ -123,14 +142,34 @@ const skills = [
     title: "AWS",
     focus: "Cloud infrastructure",
     description:
-      "Hands-on experience using AWS services for application infrastructure, particularly EC2 compute and RDS managed databases.",
-    concepts: ["EC2", "RDS", "Compute", "Managed databases"],
+      "Hands-on experience building secure, scalable AWS infrastructure across compute, storage, networking, databases, caching, and serverless services.",
+    concepts: [
+      "EC2",
+      "RDS",
+      "KMS",
+      "S3",
+      "IAM",
+      "Lambda",
+      "CloudFront",
+      "ElastiCache",
+      "API Gateway",
+      "ELB",
+    ],
+  },
+  {
+    number: "13",
+    title: "Jenkins",
+    focus: "CI/CD automation",
+    description:
+      "Builds automated CI/CD pipelines for reliable application delivery, covering build, test, Docker packaging, and deployment workflows.",
+    concepts: ["Pipelines", "Build & test", "Docker", "Automated deployment"],
   },
 ];
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const foodGalleryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -152,6 +191,16 @@ function App() {
     window.setTimeout(() => setCopied(false), 1800);
   };
 
+  const scrollFoodGallery = (direction: -1 | 1) => {
+    const gallery = foodGalleryRef.current;
+    if (!gallery) return;
+
+    gallery.scrollBy({
+      left: direction * gallery.clientWidth * 0.72,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <main>
       <header className="site-header">
@@ -167,9 +216,14 @@ function App() {
           ))}
         </nav>
 
-        <a className="header-cta" href="mailto:baohc110902@gmail.com">
-          Let's talk <ArrowUpRight size={16} />
-        </a>
+        <div className="header-links" aria-label="Quick contact links">
+          <a href="https://github.com/HuynhChiBao1109" target="_blank" rel="noreferrer">
+            <Github size={15} /> GitHub
+          </a>
+          <a href="tel:+84825999871">
+            <Phone size={15} /> 0825 999 871
+          </a>
+        </div>
         <button
           className="menu-button"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -183,22 +237,31 @@ function App() {
       <section className="hero" id="top">
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-copy reveal">
-          <p className="eyebrow"><span /> Available for new opportunities</p>
+          <p className="eyebrow"><span /> Backend &amp; Server Engineer</p>
           <h1>
-            I build the systems
+            Server systems
             <br />
-            <span>behind great products.</span>
+            <span>engineered to scale.</span>
           </h1>
           <p className="hero-intro">
-            I'm <strong>Huynh Chi Bao</strong>, a software engineer focused on reliable,
-            scalable backend systems and the infrastructure that keeps them moving.
+            I'm <strong>Huynh Chi Bao</strong>, a backend engineer focused on server
+            architecture, distributed systems, database performance, and cloud
+            infrastructure—building reliable platforms that stay fast under real-world load.
           </p>
+          <div className="hero-focus" aria-label="Server engineering specialties">
+            <span>Server architecture</span>
+            <span>Distributed systems</span>
+            <span>Database performance</span>
+          </div>
           <div className="hero-actions">
             <a className="button primary" href="#experience">
-              Explore my work <ArrowDownRight size={18} />
+              Explore server work <ArrowDownRight size={18} />
             </a>
             <a className="text-link" href="https://github.com/HuynhChiBao1109" target="_blank" rel="noreferrer">
               <Github size={19} /> GitHub <ArrowUpRight size={15} />
+            </a>
+            <a className="text-link" href="tel:+84825999871">
+              <Phone size={18} /> 0825 999 871
             </a>
           </div>
         </div>
@@ -350,19 +413,57 @@ function App() {
           <article className="project-card food-project reveal">
             <div className="project-card-top">
               <span className="project-number">01</span>
-              <span className="project-status"><i /> Releasing 11 Sep 2026</span>
+              <span className="project-status"><i /> Expected release · 11 Sep 2026</span>
             </div>
 
-            <div className="project-visual food-visual" aria-hidden="true">
-              <div className="phone-shell">
-                <div className="phone-bar" />
-                <Utensils size={34} />
-                <span>Hôm nay<br />ăn gì?</span>
+            <div className="food-gallery">
+              <div className="food-gallery-toolbar">
+                <span>App preview · Swipe to explore</span>
+                <div className="food-gallery-controls">
+                  <button
+                    type="button"
+                    onClick={() => scrollFoodGallery(-1)}
+                    aria-label="View previous BAO FOR FOOD screenshot"
+                  >
+                    <ArrowLeft size={15} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => scrollFoodGallery(1)}
+                    aria-label="View next BAO FOR FOOD screenshot"
+                  >
+                    <ArrowRight size={15} />
+                  </button>
+                </div>
               </div>
-              <MapPinned className="visual-icon map-icon" size={42} />
-              <span className="location-dot dot-one" />
-              <span className="location-dot dot-two" />
-              <span className="location-dot dot-three" />
+              <div
+                className="food-gallery-track"
+                ref={foodGalleryRef}
+                aria-label="BAO FOR FOOD app screenshots"
+                tabIndex={0}
+              >
+                {baoForFoodScreens.map((screen, index) => (
+                  <a
+                    className="food-gallery-slide"
+                    href={screen.src}
+                    target="_blank"
+                    rel="noreferrer"
+                    key={screen.src}
+                    aria-label={`Open ${screen.alt.toLowerCase()}`}
+                  >
+                    <img
+                      src={screen.src}
+                      alt={screen.alt}
+                      width="828"
+                      height="1792"
+                      loading="lazy"
+                      decoding="async"
+                      draggable="false"
+                    />
+                    <span><i>{String(index + 1).padStart(2, "0")}</i>{screen.label}</span>
+                  </a>
+                ))}
+              </div>
             </div>
 
             <div className="project-content">
@@ -377,13 +478,26 @@ function App() {
                 <span><Sparkles size={14} /> Smart dish suggestions</span>
                 <span><MapPin size={14} /> Nearby restaurants</span>
               </div>
+              <div className="project-release">
+                <span>Coming 11 Sep 2026</span>
+                <div>
+                  <span>App Store</span>
+                  <span>Google Play</span>
+                </div>
+              </div>
             </div>
           </article>
 
-          <article className="project-card redlock-project reveal">
+          <a
+            className="project-card redlock-project reveal"
+            href="https://football.b4f.site"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Open the REDLOCK 1 football project"
+          >
             <div className="project-card-top">
               <span className="project-number">02</span>
-              <span className="project-status planned"><i /> NFT roadmap · Sep 2026</span>
+              <span className="project-status planned"><i /> Visit project <ArrowUpRight size={13} /></span>
             </div>
 
             <div className="project-visual redlock-visual" aria-hidden="true">
@@ -411,7 +525,7 @@ function App() {
                 <span><Trophy size={14} /> Tactical gameplay</span>
               </div>
             </div>
-          </article>
+          </a>
         </div>
       </section>
 

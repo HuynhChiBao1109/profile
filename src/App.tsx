@@ -131,6 +131,14 @@ const skills = [
   },
   {
     number: "11",
+    title: "Docker",
+    focus: "Containers & networking",
+    description:
+      "Understands container isolation and lifecycle, with practical knowledge of bridge and NAT networking plus overlay networks for Docker Swarm clusters.",
+    concepts: ["Containers", "Bridge networking", "NAT", "Overlay networks", "Docker Swarm"],
+  },
+  {
+    number: "12",
     title: "Kubernetes",
     focus: "Orchestration basics",
     description:
@@ -138,7 +146,7 @@ const skills = [
     concepts: ["Pods", "Deployments", "Services", "Container orchestration"],
   },
   {
-    number: "12",
+    number: "13",
     title: "AWS",
     focus: "Cloud infrastructure",
     description:
@@ -157,7 +165,7 @@ const skills = [
     ],
   },
   {
-    number: "13",
+    number: "14",
     title: "Jenkins",
     focus: "CI/CD automation",
     description:

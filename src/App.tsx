@@ -51,11 +51,16 @@ const baoForFoodScreens = [
 const skills = [
   {
     number: "01",
-    title: "JavaScript",
+    title: "JavaScript & NodeJS",
     focus: "Runtime & events",
     description:
       "Strong command of core language fundamentals, the event loop, asynchronous execution, and advanced event and process handling.",
-    concepts: ["Core language", "Event loop", "Async processing", "Event handling"],
+    concepts: [
+      "Core language",
+      "Event loop",
+      "Async processing",
+      "Event handling",
+    ],
   },
   {
     number: "02",
@@ -135,7 +140,13 @@ const skills = [
     focus: "Containers & networking",
     description:
       "Understands container isolation and lifecycle, with practical knowledge of bridge and NAT networking plus overlay networks for Docker Swarm clusters.",
-    concepts: ["Containers", "Bridge networking", "NAT", "Overlay networks", "Docker Swarm"],
+    concepts: [
+      "Containers",
+      "Bridge networking",
+      "NAT",
+      "Overlay networks",
+      "Docker Swarm",
+    ],
   },
   {
     number: "12",
@@ -189,7 +200,9 @@ function App() {
       { threshold: 0.12 },
     );
 
-    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+    document
+      .querySelectorAll(".reveal")
+      .forEach((element) => observer.observe(element));
     return () => observer.disconnect();
   }, []);
 
@@ -216,16 +229,27 @@ function App() {
           B<span>.</span>
         </a>
 
-        <nav className={menuOpen ? "nav open" : "nav"} aria-label="Main navigation">
+        <nav
+          className={menuOpen ? "nav open" : "nav"}
+          aria-label="Main navigation"
+        >
           {navItems.map((item) => (
-            <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={() => setMenuOpen(false)}
+            >
               {item.label}
             </a>
           ))}
         </nav>
 
         <div className="header-links" aria-label="Quick contact links">
-          <a href="https://github.com/HuynhChiBao1109" target="_blank" rel="noreferrer">
+          <a
+            href="https://github.com/HuynhChiBao1109"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Github size={15} /> GitHub
           </a>
           <a href="tel:+84825999871">
@@ -245,18 +269,24 @@ function App() {
       <section className="hero" id="top">
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-copy reveal">
-          <p className="eyebrow"><span /> Backend &amp; Server Engineer</p>
+          <p className="eyebrow">
+            <span /> Backend &amp; Server Engineer
+          </p>
           <h1>
             Server systems
             <br />
             <span>engineered to scale.</span>
           </h1>
           <p className="hero-intro">
-            I'm <strong>Huynh Chi Bao</strong>, a backend engineer focused on server
-            architecture, distributed systems, database performance, and cloud
-            infrastructure—building reliable platforms that stay fast under real-world load.
+            I'm <strong>Huynh Chi Bao</strong>, a backend engineer focused on
+            server architecture, distributed systems, database performance, and
+            cloud infrastructure—building reliable platforms that stay fast
+            under real-world load.
           </p>
-          <div className="hero-focus" aria-label="Server engineering specialties">
+          <div
+            className="hero-focus"
+            aria-label="Server engineering specialties"
+          >
             <span>Server architecture</span>
             <span>Distributed systems</span>
             <span>Database performance</span>
@@ -265,7 +295,12 @@ function App() {
             <a className="button primary" href="#experience">
               Explore server work <ArrowDownRight size={18} />
             </a>
-            <a className="text-link" href="https://github.com/HuynhChiBao1109" target="_blank" rel="noreferrer">
+            <a
+              className="text-link"
+              href="https://github.com/HuynhChiBao1109"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Github size={19} /> GitHub <ArrowUpRight size={15} />
             </a>
             <a className="text-link" href="tel:+84825999871">
@@ -293,7 +328,11 @@ function App() {
           </div>
           <div className="orbit-badge">
             <span>1+</span>
-            <small>YEARS<br />BUILDING</small>
+            <small>
+              YEARS
+              <br />
+              BUILDING
+            </small>
           </div>
         </div>
 
@@ -311,22 +350,33 @@ function App() {
         </div>
         <div className="about-content reveal">
           <p className="statement">
-            Turning complex backend challenges into <em>fast, resilient</em> systems.
+            Turning complex backend challenges into <em>fast, resilient</em>{" "}
+            systems.
           </p>
           <div className="about-details">
             <p>
-              I enjoy working where performance, scale and product meet—from real-time
-              distributed communication to multi-gigabyte file transfers and cloud
-              infrastructure.
+              I enjoy working where performance, scale and product meet—from
+              real-time distributed communication to multi-gigabyte file
+              transfers and cloud infrastructure.
             </p>
             <p>
-              My approach is practical: understand the bottleneck, design for clarity,
-              measure the result, and leave the system better than I found it.
+              My approach is practical: understand the bottleneck, design for
+              clarity, measure the result, and leave the system better than I
+              found it.
             </p>
             <div className="stats">
-              <div><strong>90%</strong><span>Query time reduced</span></div>
-              <div><strong>4+</strong><span>Cloud platforms integrated</span></div>
-              <div><strong>2025</strong><span>Software Engineering graduate</span></div>
+              <div>
+                <strong>90%</strong>
+                <span>Query time reduced</span>
+              </div>
+              <div>
+                <strong>4+</strong>
+                <span>Cloud platforms integrated</span>
+              </div>
+              <div>
+                <strong>2025</strong>
+                <span>Software Engineering graduate</span>
+              </div>
             </div>
           </div>
         </div>
@@ -352,28 +402,49 @@ function App() {
             </div>
             <p className="role-summary">
               Building Exacoola, a large-scale file transfer platform supporting
-              reliable multi-GB transfers across Windows, Linux, macOS and major clouds.
+              reliable multi-GB transfers across Windows, Linux, macOS and major
+              clouds.
             </p>
             <ul>
               <li>
                 <ChevronRight />
-                <span>Built horizontally scalable real-time device communication with Socket.IO, Redis Pub/Sub and PM2 clusters.</span>
+                <span>
+                  Built horizontally scalable real-time device communication
+                  with Socket.IO, Redis Pub/Sub and PM2 clusters.
+                </span>
               </li>
               <li>
                 <ChevronRight />
-                <span>Reduced a complex MySQL query from 60 seconds to 0.5 seconds using CTEs and indexing strategies.</span>
+                <span>
+                  Reduced a complex MySQL query from 60 seconds to 0.5 seconds
+                  using CTEs and indexing strategies.
+                </span>
               </li>
               <li>
                 <ChevronRight />
-                <span>Designed async RabbitMQ workflows, gRPC microservices and reliable multi-tenant database operations.</span>
+                <span>
+                  Designed async RabbitMQ workflows, gRPC microservices and
+                  reliable multi-tenant database operations.
+                </span>
               </li>
               <li>
                 <ChevronRight />
-                <span>Optimized object storage transfers with streaming, chunking, pre-signed URLs and S3 lifecycle policies.</span>
+                <span>
+                  Optimized object storage transfers with streaming, chunking,
+                  pre-signed URLs and S3 lifecycle policies.
+                </span>
               </li>
             </ul>
             <div className="role-tags">
-              {["Express.js", "Socket.IO", "Redis", "MySQL", "RabbitMQ", "gRPC", "Docker"].map((tag) => (
+              {[
+                "Express.js",
+                "Socket.IO",
+                "Redis",
+                "MySQL",
+                "RabbitMQ",
+                "gRPC",
+                "Docker",
+              ].map((tag) => (
                 <span key={tag}>{tag}</span>
               ))}
             </div>
@@ -391,14 +462,16 @@ function App() {
               <h2>Frontend Developer</h2>
             </div>
             <p className="role-summary">
-              Developed a React.js team project as a UI/frontend developer. Collaborated
-              in a five-person Agile team, contributed to database design and coordinated
-              API integration with backend engineers.
+              Developed a React.js team project as a UI/frontend developer.
+              Collaborated in a five-person Agile team, contributed to database
+              design and coordinated API integration with backend engineers.
             </p>
             <div className="role-tags">
-              {["React.js", "Agile", "API Integration", "Database Design"].map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
+              {["React.js", "Agile", "API Integration", "Database Design"].map(
+                (tag) => (
+                  <span key={tag}>{tag}</span>
+                ),
+              )}
             </div>
           </div>
         </article>
@@ -411,9 +484,13 @@ function App() {
         </div>
 
         <div className="projects-heading reveal">
-          <p className="eyebrow"><span /> Currently building</p>
+          <p className="eyebrow">
+            <span /> Currently building
+          </p>
           <h2>
-            Ideas turned into<br /><em>real products.</em>
+            Ideas turned into
+            <br />
+            <em>real products.</em>
           </h2>
         </div>
 
@@ -421,7 +498,9 @@ function App() {
           <article className="project-card food-project reveal">
             <div className="project-card-top">
               <span className="project-number">01</span>
-              <span className="project-status"><i /> Expected release · 11 Sep 2026</span>
+              <span className="project-status">
+                <i /> Expected release · 11 Sep 2026
+              </span>
             </div>
 
             <div className="food-gallery">
@@ -468,23 +547,33 @@ function App() {
                       decoding="async"
                       draggable="false"
                     />
-                    <span><i>{String(index + 1).padStart(2, "0")}</i>{screen.label}</span>
+                    <span>
+                      <i>{String(index + 1).padStart(2, "0")}</i>
+                      {screen.label}
+                    </span>
                   </a>
                 ))}
               </div>
             </div>
 
             <div className="project-content">
-              <div className="project-type"><Smartphone size={15} /> Mobile application</div>
+              <div className="project-type">
+                <Smartphone size={15} /> Mobile application
+              </div>
               <h3>BAO FOR FOOD</h3>
               <p className="project-subtitle">Hôm nay ăn gì?</p>
               <p>
-                A mobile app that takes the friction out of choosing what to eat by
-                suggesting dishes and nearby restaurants based on the user's location.
+                A mobile app that takes the friction out of choosing what to eat
+                by suggesting dishes and nearby restaurants based on the user's
+                location.
               </p>
               <div className="project-features">
-                <span><Sparkles size={14} /> Smart dish suggestions</span>
-                <span><MapPin size={14} /> Nearby restaurants</span>
+                <span>
+                  <Sparkles size={14} /> Smart dish suggestions
+                </span>
+                <span>
+                  <MapPin size={14} /> Nearby restaurants
+                </span>
               </div>
               <div className="project-release">
                 <span>Coming 11 Sep 2026</span>
@@ -505,7 +594,9 @@ function App() {
           >
             <div className="project-card-top">
               <span className="project-number">02</span>
-              <span className="project-status planned"><i /> Visit project <ArrowUpRight size={13} /></span>
+              <span className="project-status planned">
+                <i /> Visit project <ArrowUpRight size={13} />
+              </span>
             </div>
 
             <div className="project-visual redlock-visual" aria-hidden="true">
@@ -517,20 +608,29 @@ function App() {
                 <span className="strategy-line line-one" />
                 <span className="strategy-line line-two" />
               </div>
-              <div className="trophy-mark"><Trophy size={34} /></div>
+              <div className="trophy-mark">
+                <Trophy size={34} />
+              </div>
             </div>
 
             <div className="project-content">
-              <div className="project-type"><ShieldCheck size={15} /> AI football simulation</div>
+              <div className="project-type">
+                <ShieldCheck size={15} /> AI football simulation
+              </div>
               <h3>REDLOCK 1</h3>
               <p className="project-subtitle">Outthink. Outplay. Win.</p>
               <p>
-                A strategy-first football simulation where tactical decisions and AI
-                shape every match, with NFT integration planned for the next phase.
+                A strategy-first football simulation where tactical decisions
+                and AI shape every match, with NFT integration planned for the
+                next phase.
               </p>
               <div className="project-features">
-                <span><Sparkles size={14} /> AI-driven matches</span>
-                <span><Trophy size={14} /> Tactical gameplay</span>
+                <span>
+                  <Sparkles size={14} /> AI-driven matches
+                </span>
+                <span>
+                  <Trophy size={14} /> Tactical gameplay
+                </span>
               </div>
             </div>
           </a>
@@ -543,7 +643,11 @@ function App() {
           <p>Technical depth</p>
         </div>
         <div className="skills-heading reveal">
-          <h2>Knowledge built through<br /><span>real systems and practice.</span></h2>
+          <h2>
+            Knowledge built through
+            <br />
+            <span>real systems and practice.</span>
+          </h2>
         </div>
         <div className="skill-grid">
           {skills.map((skill) => (
@@ -555,7 +659,9 @@ function App() {
               <h3>{skill.title}</h3>
               <p className="skill-description">{skill.description}</p>
               <div className="skill-concepts">
-                {skill.concepts.map((concept) => <span key={concept}>{concept}</span>)}
+                {skill.concepts.map((concept) => (
+                  <span key={concept}>{concept}</span>
+                ))}
               </div>
             </article>
           ))}
@@ -570,11 +676,17 @@ function App() {
         <div className="education-card reveal">
           <div>
             <span className="edu-year">2020 — 2025</span>
-            <h2>Bachelor of<br />Software Engineering</h2>
+            <h2>
+              Bachelor of
+              <br />
+              Software Engineering
+            </h2>
           </div>
           <div className="edu-school">
             <p>FPT University</p>
-            <span><MapPin size={15} /> Ho Chi Minh City, Vietnam</span>
+            <span>
+              <MapPin size={15} /> Ho Chi Minh City, Vietnam
+            </span>
           </div>
           <div className="edu-mark">FPT</div>
         </div>
@@ -595,16 +707,24 @@ function App() {
               loading="lazy"
               decoding="async"
             />
-            <span>View full certificate <ArrowUpRight size={15} /></span>
+            <span>
+              View full certificate <ArrowUpRight size={15} />
+            </span>
           </a>
 
           <div className="certificate-content">
-            <div className="certificate-icon"><Award size={22} /></div>
+            <div className="certificate-icon">
+              <Award size={22} />
+            </div>
             <p className="certificate-label">Certificate · FPT University</p>
-            <h3>Philosophy<br />Talk 12</h3>
+            <h3>
+              Philosophy
+              <br />
+              Talk 12
+            </h3>
             <p className="certificate-description">
-              Recognized for delivering a meaningful presentation and fostering a
-              profound love of philosophy during the Summer 2024 term.
+              Recognized for delivering a meaningful presentation and fostering
+              a profound love of philosophy during the Summer 2024 term.
             </p>
             <div className="certificate-meta">
               <span>17 Jun 2024</span>
@@ -616,8 +736,14 @@ function App() {
 
       <section className="contact section" id="contact">
         <div className="contact-inner reveal">
-          <p className="eyebrow"><span /> Have a project in mind?</p>
-          <h2>Let's build something<br /><em>that works.</em></h2>
+          <p className="eyebrow">
+            <span /> Have a project in mind?
+          </p>
+          <h2>
+            Let's build something
+            <br />
+            <em>that works.</em>
+          </h2>
           <div className="contact-actions">
             <a className="button light" href="mailto:baohc110902@gmail.com">
               <Mail size={18} /> Get in touch <ArrowUpRight size={18} />
@@ -629,10 +755,18 @@ function App() {
           </div>
         </div>
         <footer>
-          <a className="brand" href="#top">B<span>.</span></a>
+          <a className="brand" href="#top">
+            B<span>.</span>
+          </a>
           <p>Huynh Chi Bao © 2026</p>
           <div>
-            <a href="https://github.com/HuynhChiBao1109" target="_blank" rel="noreferrer">GitHub</a>
+            <a
+              href="https://github.com/HuynhChiBao1109"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
             <a href="tel:+84825999871">0825 999 871</a>
           </div>
         </footer>

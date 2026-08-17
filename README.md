@@ -1,54 +1,70 @@
-# React + TypeScript + Vite
+# Huynh Chi Bao — Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
+  <a href="https://profile.b4f.site">
+    <img src="public/avatar.jpg" alt="Huynh Chi Bao" width="220" />
+  </a>
 
-Currently, two official plugins are available:
+  <h3>Backend & DevOps Engineer</h3>
+  <p>Building reliable server systems, scalable platforms and practical digital products.</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  <p>
+    <a href="https://profile.b4f.site"><strong>Visit the portfolio →</strong></a>
+  </p>
+</div>
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## About this portfolio
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+This is the personal portfolio of **Huynh Chi Bao**, a software engineer based in Ho Chi Minh City. It brings together my professional journey, selected work, personal products, skills, education and ways to get in touch.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The experience is designed as a focused editorial profile: dark, minimal and energetic, with a vivid lime accent that highlights the most important moments across the page.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## What you will find
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- A concise introduction to who I am and how I approach engineering
+- Selected experience and measurable outcomes from real-world products
+- Personal projects shaped from early ideas into usable experiences
+- A practical overview of the areas I work with
+- Education, recognition and direct contact details
+
+## Featured project — BAO FOR FOOD
+
+**BAO FOR FOOD** is a mobile experience built around one familiar question: *“Hôm nay ăn gì?”* It helps users discover dishes and nearby restaurants, making everyday food decisions faster and more enjoyable.
+
+<div align="center">
+  <a href="public/project/baoforfood/login.jpg">
+    <img src="public/project/baoforfood/login.jpg" alt="BAO FOR FOOD account access screen" width="30%" />
+  </a>
+  &nbsp;
+  <a href="public/project/baoforfood/main2.jpg">
+    <img src="public/project/baoforfood/main2.jpg" alt="BAO FOR FOOD dish discovery screen" width="30%" />
+  </a>
+  &nbsp;
+  <a href="public/project/baoforfood/main.jpg">
+    <img src="public/project/baoforfood/main.jpg" alt="BAO FOR FOOD smart suggestion screen" width="30%" />
+  </a>
+</div>
+
+## Recognition
+
+The portfolio also records milestones beyond day-to-day work, including academic activities and achievements that reflect curiosity, communication and continued personal growth.
+
+<div align="center">
+  <a href="public/philosophy-talk-12-certificate-restored.png">
+    <img src="public/philosophy-talk-12-certificate-restored.png" alt="Philosophy Talk 12 certificate awarded to Huynh Chi Bao" width="760" />
+  </a>
+</div>
+
+## Explore
+
+The full story, interactions and latest updates are available at **[profile.b4f.site](https://profile.b4f.site)**.
+
+<div align="center">
+  <a href="https://profile.b4f.site">Portfolio</a>
+  ·
+  <a href="https://github.com/HuynhChiBao1109">GitHub</a>
+  ·
+  <a href="mailto:baohc110902@gmail.com">Email</a>
+</div>

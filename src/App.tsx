@@ -48,6 +48,54 @@ const baoForFoodScreens = [
   },
 ];
 
+const personalProjects = [
+  {
+    id: "fish",
+    number: "01",
+    title: "BAO FOR FISH",
+    type: "NFT aquarium",
+    tagline: "A little ocean in motion.",
+    description:
+      "A playful aquarium experience where each fish feels alive, collectible, and personal. Users can care for companions, decorate the tank, and build a cozy digital habitat.",
+    links: ["fish.b4f.site", "Wallet sync"],
+    href: "https://fish.b4f.site",
+    visualClass: "fish-visual",
+    tags: ["NFT aquarium", "Pet care", "Customization"],
+    status: "Live product",
+    statusTone: "active",
+  },
+  {
+    id: "food",
+    number: "02",
+    title: "BAO FOR FOOD",
+    type: "Mobile app",
+    tagline: "Hôm nay ăn gì?",
+    description:
+      "A fast food decision helper for everyday life—discover nearby restaurants, get smart suggestions, and reduce the friction of choosing where to eat.",
+    links: ["App Store", "Google Play"],
+    href: "https://food.b4f.site",
+    visualClass: "food-visual",
+    tags: ["Smart suggestions", "Nearby dining", "Daily habit"],
+    status: "In beta",
+    statusTone: "neutral",
+  },
+  {
+    id: "football",
+    number: "03",
+    title: "REDLOCK",
+    type: "AI football simulation",
+    tagline: "Outthink. Outplay. Win.",
+    description:
+      "A strategy-first football experience where AI-driven matches, tactical decisions, and competitive progression turn every game into a calculated battle.",
+    links: ["football.b4f.site", "AI Match"],
+    href: "https://football.b4f.site",
+    visualClass: "football-visual",
+    tags: ["AI gameplay", "Tactics", "Match strategy"],
+    status: "Live project",
+    statusTone: "planned",
+  },
+];
+
 const skills = [
   {
     number: "01",
@@ -309,12 +357,19 @@ function App() {
           </div>
         </div>
 
-        <div className="portrait-wrap reveal">
-          <div className="portrait-frame">
-            <img src="/avatar.jpg" alt="Huynh Chi Bao" />
-            <div className="portrait-tag">
-              <span>Software Engineer</span>
-              <small>Ho Chi Minh City</small>
+        <div className="hero-panel reveal" aria-label="Profile highlights">
+          <div className="hero-panel__glass">
+            <p className="hero-panel__kicker">Build focus</p>
+            <h2>Reliable systems with product instinct.</h2>
+            <div className="hero-panel__metrics">
+              <div>
+                <strong>90%</strong>
+                <span>Query optimization</span>
+              </div>
+              <div>
+                <strong>4+</strong>
+                <span>Cloud stacks</span>
+              </div>
             </div>
             <a
               className="cv-download"
@@ -325,14 +380,6 @@ function App() {
               <Download size={15} />
               Download CV
             </a>
-          </div>
-          <div className="orbit-badge">
-            <span>1+</span>
-            <small>
-              YEARS
-              <br />
-              BUILDING
-            </small>
           </div>
         </div>
 
@@ -495,145 +542,169 @@ function App() {
         </div>
 
         <div className="project-grid">
-          <article className="project-card food-project reveal">
-            <div className="project-card-top">
-              <span className="project-number">01</span>
-              <span className="project-status">
-                <i /> Expected release · 11 Sep 2026
-              </span>
-            </div>
+          {personalProjects.map((project) => {
+            const isFoodProject = project.id === "food";
 
-            <div className="food-gallery">
-              <div className="food-gallery-toolbar">
-                <span>App preview · Swipe to explore</span>
-                <div className="food-gallery-controls">
-                  <button
-                    type="button"
-                    onClick={() => scrollFoodGallery(-1)}
-                    aria-label="View previous BAO FOR FOOD screenshot"
-                  >
-                    <ArrowLeft size={15} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => scrollFoodGallery(1)}
-                    aria-label="View next BAO FOR FOOD screenshot"
-                  >
-                    <ArrowRight size={15} />
-                  </button>
+            return isFoodProject ? (
+              <article className="project-card project-card--food reveal" key={project.id}>
+                <div className="project-card-top">
+                  <span className="project-number">{project.number}</span>
+                  <span className={`project-status ${project.statusTone}`}>
+                    <i /> {project.status}
+                  </span>
                 </div>
-              </div>
-              <div
-                className="food-gallery-track"
-                ref={foodGalleryRef}
-                aria-label="BAO FOR FOOD app screenshots"
-                tabIndex={0}
+
+                <div className="food-gallery">
+                  <div className="food-gallery-toolbar">
+                    <span>App preview · Swipe to explore</span>
+                    <div className="food-gallery-controls">
+                      <button
+                        type="button"
+                        onClick={() => scrollFoodGallery(-1)}
+                        aria-label="View previous BAO FOR FOOD screenshot"
+                      >
+                        <ArrowLeft size={15} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => scrollFoodGallery(1)}
+                        aria-label="View next BAO FOR FOOD screenshot"
+                      >
+                        <ArrowRight size={15} />
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    className="food-gallery-track"
+                    ref={foodGalleryRef}
+                    aria-label="BAO FOR FOOD app screenshots"
+                    tabIndex={0}
+                  >
+                    {baoForFoodScreens.map((screen, index) => (
+                      <a
+                        className="food-gallery-slide"
+                        href={screen.src}
+                        target="_blank"
+                        rel="noreferrer"
+                        key={screen.src}
+                        aria-label={`Open ${screen.alt.toLowerCase()}`}
+                      >
+                        <img
+                          src={screen.src}
+                          alt={screen.alt}
+                          width="828"
+                          height="1792"
+                          loading="lazy"
+                          decoding="async"
+                          draggable="false"
+                        />
+                        <span>
+                          <i>{String(index + 1).padStart(2, "0")}</i>
+                          {screen.label}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="project-content">
+                  <div className="project-type">
+                    <Smartphone size={15} /> {project.type}
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p className="project-subtitle">{project.tagline}</p>
+                  <p>{project.description}</p>
+                  <div className="project-features">
+                    {project.tags.map((tag) => (
+                      <span key={tag}>
+                        {tag === "Smart suggestions" ? <Sparkles size={14} /> : tag === "Nearby dining" ? <MapPin size={14} /> : <Check size={14} />} {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="project-release">
+                    <span>{project.status}</span>
+                    <div>
+                      {project.links.map((link) => (
+                        <span key={link}>{link}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ) : (
+              <a
+                className={`project-card project-card--${project.id} reveal`}
+                href={project.href}
+                target="_blank"
+                rel="noreferrer"
+                key={project.id}
+                aria-label={`Open ${project.title} project`}
               >
-                {baoForFoodScreens.map((screen, index) => (
-                  <a
-                    className="food-gallery-slide"
-                    href={screen.src}
-                    target="_blank"
-                    rel="noreferrer"
-                    key={screen.src}
-                    aria-label={`Open ${screen.alt.toLowerCase()}`}
-                  >
-                    <img
-                      src={screen.src}
-                      alt={screen.alt}
-                      width="828"
-                      height="1792"
-                      loading="lazy"
-                      decoding="async"
-                      draggable="false"
-                    />
-                    <span>
-                      <i>{String(index + 1).padStart(2, "0")}</i>
-                      {screen.label}
-                    </span>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="project-content">
-              <div className="project-type">
-                <Smartphone size={15} /> Mobile application
-              </div>
-              <h3>BAO FOR FOOD</h3>
-              <p className="project-subtitle">Hôm nay ăn gì?</p>
-              <p>
-                A mobile app that takes the friction out of choosing what to eat
-                by suggesting dishes and nearby restaurants based on the user's
-                location.
-              </p>
-              <div className="project-features">
-                <span>
-                  <Sparkles size={14} /> Smart dish suggestions
-                </span>
-                <span>
-                  <MapPin size={14} /> Nearby restaurants
-                </span>
-              </div>
-              <div className="project-release">
-                <span>Coming 11 Sep 2026</span>
-                <div>
-                  <span>App Store</span>
-                  <span>Google Play</span>
+                <div className="project-card-top">
+                  <span className="project-number">{project.number}</span>
+                  <span className={`project-status ${project.statusTone}`}>
+                    <i /> {project.status}
+                  </span>
                 </div>
-              </div>
-            </div>
-          </article>
 
-          <a
-            className="project-card redlock-project reveal"
-            href="https://football.b4f.site"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Open the REDLOCK 1 football project"
-          >
-            <div className="project-card-top">
-              <span className="project-number">02</span>
-              <span className="project-status planned">
-                <i /> Visit project <ArrowUpRight size={13} />
-              </span>
-            </div>
+                <div className={`project-visual ${project.visualClass}`} aria-hidden="true">
+                  {project.id === "fish" ? (
+                    <>
+                      <div className="fish-scene">
+                        <span className="fish-orb fish-orb--one" />
+                        <span className="fish-orb fish-orb--two" />
+                        <span className="fish-school fish-school--one" />
+                        <span className="fish-school fish-school--two" />
+                        <span className="fish-bubble bubble-one" />
+                        <span className="fish-bubble bubble-two" />
+                      </div>
+                      <div className="fish-badge">
+                        <Sparkles size={24} />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="pitch-lines">
+                        <span className="player p-one" />
+                        <span className="player p-two" />
+                        <span className="player p-three" />
+                        <span className="player p-four" />
+                        <span className="strategy-line line-one" />
+                        <span className="strategy-line line-two" />
+                      </div>
+                      <div className="trophy-mark">
+                        <Trophy size={34} />
+                      </div>
+                    </>
+                  )}
+                </div>
 
-            <div className="project-visual redlock-visual" aria-hidden="true">
-              <div className="pitch-lines">
-                <span className="player p-one" />
-                <span className="player p-two" />
-                <span className="player p-three" />
-                <span className="player p-four" />
-                <span className="strategy-line line-one" />
-                <span className="strategy-line line-two" />
-              </div>
-              <div className="trophy-mark">
-                <Trophy size={34} />
-              </div>
-            </div>
-
-            <div className="project-content">
-              <div className="project-type">
-                <ShieldCheck size={15} /> AI football simulation
-              </div>
-              <h3>REDLOCK 1</h3>
-              <p className="project-subtitle">Outthink. Outplay. Win.</p>
-              <p>
-                A strategy-first football simulation where tactical decisions
-                and AI shape every match, with NFT integration planned for the
-                next phase.
-              </p>
-              <div className="project-features">
-                <span>
-                  <Sparkles size={14} /> AI-driven matches
-                </span>
-                <span>
-                  <Trophy size={14} /> Tactical gameplay
-                </span>
-              </div>
-            </div>
-          </a>
+                <div className="project-content">
+                  <div className="project-type">
+                    {project.id === "fish" ? <Sparkles size={15} /> : <ShieldCheck size={15} />} {project.type}
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p className="project-subtitle">{project.tagline}</p>
+                  <p>{project.description}</p>
+                  <div className="project-features">
+                    {project.tags.map((tag) => (
+                      <span key={tag}>
+                        {project.id === "fish" ? <Sparkles size={14} /> : <Trophy size={14} />} {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="project-release">
+                    <span>{project.status}</span>
+                    <div>
+                      {project.links.map((link) => (
+                        <span key={link}>{link}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            );
+          })}
         </div>
       </section>
 

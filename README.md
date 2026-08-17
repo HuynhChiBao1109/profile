@@ -1,10 +1,6 @@
 # Huynh Chi Bao — Personal Portfolio
 
 <div align="center">
-  <a href="https://profile.b4f.site">
-    <img src="public/avatar.jpg" alt="Huynh Chi Bao" width="220" />
-  </a>
-
   <h3>Backend & DevOps Engineer</h3>
   <p>Building reliable server systems, scalable platforms and practical digital products.</p>
 

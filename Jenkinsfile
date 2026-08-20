@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Pull Source') {
             steps {
-                dir('/home/b4f/baohc-profile') {
+                dir('/home/b4f/profile') {
                     sh '''
                         git checkout master
                         git pull origin master
@@ -15,9 +15,10 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                dir('/home/b4f/baohc-profile') {
+                dir('/home/b4f/profile') {
                     sh '''
                         docker compose up --build -d
+                        docker compose ps
                     '''
                 }
             }
@@ -26,11 +27,11 @@ pipeline {
 
     post {
         success {
-            echo 'Deploy success'
+            echo 'DEPLOY SUCCESS'
         }
 
         failure {
-            echo 'Deploy failed'
+            echo 'DEPLOY FAILED'
         }
     }
 }

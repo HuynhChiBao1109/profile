@@ -75,9 +75,31 @@ button {
   transition: color 180ms ease;
 }
 
+.nav a {
+  position: relative;
+}
+
+.nav a::after {
+  background: var(--lime);
+  bottom: -9px;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+  width: 100%;
+}
+
 .nav a:hover,
-.header-links a:hover {
+.header-links a:hover,
+.nav a.active {
   color: var(--lime);
+}
+
+.nav a.active::after {
+  transform: scaleX(1);
 }
 
 .header-links {

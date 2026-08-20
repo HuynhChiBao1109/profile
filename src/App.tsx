@@ -23,10 +23,10 @@ import {
 import "./App.css";
 
 const navItems = [
-  { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
+  { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -233,9 +233,45 @@ const skills = [
   },
 ];
 
+function SkillsSection() {
+  return (
+    <section className="skills section" id="skills">
+      <div className="section-label reveal">
+        <span>02</span>
+        <p>Technical depth</p>
+      </div>
+      <div className="skills-heading reveal">
+        <h2>
+          Knowledge built through
+          <br />
+          <span>real systems and practice.</span>
+        </h2>
+      </div>
+      <div className="skill-grid">
+        {skills.map((skill) => (
+          <article className="skill-card reveal" key={skill.title}>
+            <div className="skill-card-head">
+              <span>{skill.number}</span>
+              <p>{skill.focus}</p>
+            </div>
+            <h3>{skill.title}</h3>
+            <p className="skill-description">{skill.description}</p>
+            <div className="skill-concepts">
+              {skill.concepts.map((concept) => (
+                <span key={concept}>{concept}</span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const foodGalleryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -251,6 +287,27 @@ function App() {
     document
       .querySelectorAll(".reveal")
       .forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      {
+        rootMargin: "-25% 0px -65% 0px",
+        threshold: 0,
+      },
+    );
+
+    navItems.forEach(({ href }) => {
+      const section = document.querySelector(href);
+      if (section) observer.observe(section);
+    });
+
     return () => observer.disconnect();
   }, []);
 
@@ -285,7 +342,12 @@ function App() {
             <a
               key={item.href}
               href={item.href}
-              onClick={() => setMenuOpen(false)}
+              className={activeSection === item.href.slice(1) ? "active" : undefined}
+              aria-current={activeSection === item.href.slice(1) ? "location" : undefined}
+              onClick={() => {
+                setActiveSection(item.href.slice(1));
+                setMenuOpen(false);
+              }}
             >
               {item.label}
             </a>
@@ -386,58 +448,19 @@ function App() {
         <div className="hero-bottom">
           <span>Scroll to explore</span>
           <div className="scroll-line" />
-          <span className="hero-index">01 / 05</span>
-        </div>
-      </section>
-
-      <section className="about section" id="about">
-        <div className="section-label reveal">
-          <span>01</span>
-          <p>About me</p>
-        </div>
-        <div className="about-content reveal">
-          <p className="statement">
-            Turning complex backend challenges into <em>fast, resilient</em>{" "}
-            systems.
-          </p>
-          <div className="about-details">
-            <p>
-              I enjoy working where performance, scale and product meet—from
-              real-time distributed communication to multi-gigabyte file
-              transfers and cloud infrastructure.
-            </p>
-            <p>
-              My approach is practical: understand the bottleneck, design for
-              clarity, measure the result, and leave the system better than I
-              found it.
-            </p>
-            <div className="stats">
-              <div>
-                <strong>90%</strong>
-                <span>Query time reduced</span>
-              </div>
-              <div>
-                <strong>4+</strong>
-                <span>Cloud platforms integrated</span>
-              </div>
-              <div>
-                <strong>2025</strong>
-                <span>Software Engineering graduate</span>
-              </div>
-            </div>
-          </div>
+          <span className="hero-index">01 / 04</span>
         </div>
       </section>
 
       <section className="experience section" id="experience">
         <div className="section-label reveal">
-          <span>02</span>
+          <span>01</span>
           <p>Selected experience</p>
         </div>
 
         <article className="role featured reveal">
           <div className="role-meta">
-            <p>Jan 2025 — Present</p>
+            <p>Nov 2024 — Present</p>
             <a href="https://innorix.com" target="_blank" rel="noreferrer">
               INNORIX Vietnam <ArrowUpRight size={15} />
             </a>
@@ -448,37 +471,41 @@ function App() {
               <h2>Backend Developer</h2>
             </div>
             <p className="role-summary">
-              Building Exacoola, a large-scale file transfer platform supporting
-              reliable multi-GB transfers across Windows, Linux, macOS and major
-              clouds.
+              Contributing to Exacoola, an Express.js-based file transfer
+              platform that handles multi-GB transfers across major operating
+              systems and cloud storage providers.
             </p>
             <ul>
               <li>
                 <ChevronRight />
                 <span>
-                  Built horizontally scalable real-time device communication
-                  with Socket.IO, Redis Pub/Sub and PM2 clusters.
+                  Designed distributed RabbitMQ workflows for background jobs,
+                  agent commands and transfer processing, then extracted
+                  monitoring into an independent gRPC microservice.
                 </span>
               </li>
               <li>
                 <ChevronRight />
                 <span>
-                  Reduced a complex MySQL query from 60 seconds to 0.5 seconds
-                  using CTEs and indexing strategies.
+                  Reduced complex MySQL query execution time by more than 90%
+                  using CTEs, indexing, transaction management, deadlock
+                  analysis and connection pooling in a multi-tenant system.
                 </span>
               </li>
               <li>
                 <ChevronRight />
                 <span>
-                  Designed async RabbitMQ workflows, gRPC microservices and
-                  reliable multi-tenant database operations.
+                  Built scalable real-time communication with Socket.IO and
+                  Redis Pub/Sub; maintained K3s cloud and Docker Swarm
+                  on-premise environments with Jenkins CI/CD pipelines.
                 </span>
               </li>
               <li>
                 <ChevronRight />
                 <span>
-                  Optimized object storage transfers with streaming, chunking,
-                  pre-signed URLs and S3 lifecycle policies.
+                  Engineered memory-efficient object storage transfers with
+                  chunking, Node.js Streams and pre-signed URLs, and optimized
+                  storage costs through S3 lifecycle policies.
                 </span>
               </li>
             </ul>
@@ -490,7 +517,9 @@ function App() {
                 "MySQL",
                 "RabbitMQ",
                 "gRPC",
-                "Docker",
+                "K3s",
+                "Docker Swarm",
+                "Jenkins",
               ].map((tag) => (
                 <span key={tag}>{tag}</span>
               ))}
@@ -500,7 +529,32 @@ function App() {
 
         <article className="role reveal">
           <div className="role-meta">
-            <p>Sep 2023 — Dec 2023</p>
+            <p>Jun 2024 — Dec 2024</p>
+            <span>Freelance</span>
+          </div>
+          <div className="role-content">
+            <div className="role-title">
+              <p>Freelance role</p>
+              <h2>Backend Developer</h2>
+            </div>
+            <p className="role-summary">
+              Developed a NestJS API Gateway that integrated APIs from multiple
+              transportation providers behind one standardized interface, with
+              a modular architecture grounded in OOP and SOLID principles.
+            </p>
+            <div className="role-tags">
+              {["NestJS", "TypeScript", "API Gateway", "OOP", "SOLID"].map(
+                (tag) => (
+                  <span key={tag}>{tag}</span>
+                ),
+              )}
+            </div>
+          </div>
+        </article>
+
+        <article className="role reveal">
+          <div className="role-meta">
+            <p>Sep 2023 — Feb 2024</p>
             <span>FPT Software</span>
           </div>
           <div className="role-content compact">
@@ -509,9 +563,9 @@ function App() {
               <h2>Frontend Developer</h2>
             </div>
             <p className="role-summary">
-              Developed a React.js team project as a UI/frontend developer.
-              Collaborated in a five-person Agile team, contributed to database
-              design and coordinated API integration with backend engineers.
+              Developed the UI for a React.js team project in a five-person
+              Agile team, contributed to database design, and coordinated API
+              configuration and integration with backend developers.
             </p>
             <div className="role-tags">
               {["React.js", "Agile", "API Integration", "Database Design"].map(
@@ -523,6 +577,8 @@ function App() {
           </div>
         </article>
       </section>
+
+      <SkillsSection />
 
       <section className="projects section" id="projects">
         <div className="section-label reveal">
@@ -708,40 +764,9 @@ function App() {
         </div>
       </section>
 
-      <section className="skills section" id="skills">
+      <section className="education section" id="education">
         <div className="section-label reveal">
           <span>04</span>
-          <p>Technical depth</p>
-        </div>
-        <div className="skills-heading reveal">
-          <h2>
-            Knowledge built through
-            <br />
-            <span>real systems and practice.</span>
-          </h2>
-        </div>
-        <div className="skill-grid">
-          {skills.map((skill) => (
-            <article className="skill-card reveal" key={skill.title}>
-              <div className="skill-card-head">
-                <span>{skill.number}</span>
-                <p>{skill.focus}</p>
-              </div>
-              <h3>{skill.title}</h3>
-              <p className="skill-description">{skill.description}</p>
-              <div className="skill-concepts">
-                {skill.concepts.map((concept) => (
-                  <span key={concept}>{concept}</span>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="education section">
-        <div className="section-label reveal">
-          <span>05</span>
           <p>Education</p>
         </div>
         <div className="education-card reveal">

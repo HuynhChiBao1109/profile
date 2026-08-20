@@ -12,6 +12,7 @@ pipeline {
         APP_NAME = 'baohc-profile'
         SERVICE_NAME = 'portfolio'
         DEPLOY_DIR = '/home/b4f/baohc-profile'
+        DEPLOY_BRANCH = 'master'
         COMPOSE_PROJECT_NAME = 'baohc-profile'
     }
 
@@ -27,6 +28,7 @@ pipeline {
                 sh '''
                     set -eu
 
+                    git --version
                     docker --version
                     docker info > /dev/null
                     docker compose version
@@ -124,13 +126,15 @@ pipeline {
                         "$APP_NAME:build-$BUILD_NUMBER" \
                         "$APP_NAME:latest"
 
-                    mkdir -p "$DEPLOY_DIR"
-                    rsync -a \
-                        --delete \
-                        --exclude='.git' \
-                        --exclude='.env' \
-                        --exclude='node_modules' \
-                        ./ "$DEPLOY_DIR"/
+                    if [ ! -d "$DEPLOY_DIR/.git" ]; then
+                        echo "$DEPLOY_DIR is not a Git repository"
+                        echo "Clone the repository into this directory before deploying"
+                        exit 1
+                    fi
+
+                    git -c safe.directory="$DEPLOY_DIR" \
+                        -C "$DEPLOY_DIR" \
+                        pull --ff-only origin "$DEPLOY_BRANCH"
 
                     docker compose \
                         --file "$DEPLOY_DIR/docker-compose.yml" \

@@ -11,7 +11,7 @@ pipeline {
     environment {
         APP_NAME = 'baohc-profile'
         SERVICE_NAME = 'portfolio'
-        DEPLOY_DIR = "${JENKINS_HOME}/deploy/baohc-profile"
+        DEPLOY_DIR = '/home/b4f/baohc-profile'
         COMPOSE_PROJECT_NAME = 'baohc-profile'
     }
 

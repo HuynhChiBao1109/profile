@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="8" fill="#0d0f0e"/>
+  <text x="7" y="39" fill="#f0f2ea" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="-2">BAO</text>
+  <path d="M51 15h5L49 49h-5l7-34Z" fill="#b5e85d"/>
+</svg>

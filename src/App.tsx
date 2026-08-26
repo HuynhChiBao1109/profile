@@ -1,265 +1,211 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  ArrowDownRight,
-  ArrowLeft,
-  ArrowRight,
-  ArrowUpRight,
-  Award,
-  Check,
-  ChevronRight,
-  Copy,
-  Download,
-  Github,
-  Mail,
-  MapPin,
-  Menu,
-  Phone,
-  ShieldCheck,
-  Smartphone,
-  Sparkles,
-  Trophy,
-  X,
-} from "lucide-react";
+import { useGSAP } from "@gsap/react";
+import { ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, Check, Copy, DownloadSimple, GithubLogo, List, MapPin, X } from "@phosphor-icons/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./App.css";
 
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
 const navItems = [
+  { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
-  { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
 ];
 
-const baoForFoodScreens = [
+const experiences = [
   {
-    src: "/project/baoforfood/login.jpg",
-    alt: "BAO FOR FOOD login screen",
-    label: "Account access",
+    period: "Nov 2024 — Present",
+    company: "INNORIX Vietnam",
+    companyUrl: "https://innorix.com",
+    role: "Backend Developer",
+    context: "Exacoola is an Express.js file-transfer platform handling multi-GB transfers across operating systems and cloud storage providers.",
+    achievements: [
+      "Designed RabbitMQ workflows for background jobs, agent commands, and transfer processing; extracted monitoring into an independent gRPC service.",
+      "Cut complex MySQL query execution time by more than 90% through CTEs, indexing, transaction design, deadlock analysis, and connection-pool tuning.",
+      "Built real-time communication with Socket.IO and Redis Pub/Sub across K3s cloud and Docker Swarm on-premise environments.",
+      "Engineered memory-efficient object-storage transfers with chunking, Node.js Streams, pre-signed URLs, and S3 lifecycle policies.",
+    ],
+    stack: ["Express.js", "MySQL", "RabbitMQ", "Redis", "gRPC", "K3s", "Docker Swarm", "Jenkins"],
   },
   {
-    src: "/project/baoforfood/main2.jpg",
-    alt: "BAO FOR FOOD home screen asking what to eat today",
-    label: "Dish discovery",
+    period: "Jun 2024 — Dec 2024",
+    company: "Independent",
+    role: "Backend Developer",
+    context: "Built a NestJS API gateway that unified multiple transportation providers behind one predictable interface.",
+    achievements: ["Structured provider integrations as isolated modules using OOP, SOLID principles, and typed contracts so new providers could be added without reshaping the gateway."],
+    stack: ["NestJS", "TypeScript", "API Gateway", "OOP", "SOLID"],
   },
   {
-    src: "/project/baoforfood/main.jpg",
-    alt: "BAO FOR FOOD dish suggestion loading screen",
-    label: "Smart suggestions",
+    period: "Sep 2023 — Feb 2024",
+    company: "FPT Software",
+    role: "Frontend Developer Intern",
+    context: "Worked in a five-person Agile team on a React application, coordinating the UI layer with backend APIs and database design.",
+    achievements: ["Delivered production-facing interface work, contributed to data modeling, and coordinated API configuration and integration with backend developers."],
+    stack: ["React.js", "API integration", "Database design", "Agile"],
   },
 ];
 
-const personalProjects = [
+const skillGroups = [
+  {
+    title: "Backend engineering",
+    description: "The core of my profile: typed Node.js services, modular architecture, real-time systems, and API design.",
+    primary: ["Node.js", "TypeScript", "NestJS", "Express.js"],
+    secondary: ["gRPC", "Socket.IO", "React.js", "OOP", "SOLID"],
+  },
+  {
+    title: "Data and messaging",
+    description: "Query behavior, storage tradeoffs, distributed coordination, and asynchronous processing under real workloads.",
+    primary: ["MySQL", "Redis", "RabbitMQ", "PostgreSQL"],
+    secondary: ["MongoDB", "Kafka", "Pub/Sub", "Indexing", "Transactions"],
+  },
+  {
+    title: "Cloud and delivery",
+    description: "Infrastructure and delivery systems that keep services observable, repeatable, and resilient across environments.",
+    primary: ["AWS", "Docker", "Kubernetes", "Jenkins"],
+    secondary: ["K3s", "Docker Swarm", "S3", "RDS", "CloudFront", "CI/CD"],
+  },
+];
+
+const technologies = ["Node.js", "TypeScript", "NestJS", "MySQL", "Redis", "RabbitMQ", "AWS", "Docker", "Kubernetes", "Jenkins"];
+
+const projects = [
   {
     id: "fish",
-    number: "01",
     title: "BAO FOR FISH",
-    type: "NFT aquarium",
-    tagline: "A little ocean in motion.",
-    description:
-      "A playful aquarium experience where each fish feels alive, collectible, and personal. Users can care for companions, decorate the tank, and build a cozy digital habitat.",
-    links: ["fish.b4f.site", "Wallet sync"],
-    href: "https://fish.b4f.site",
-    visualClass: "fish-visual",
-    tags: ["NFT aquarium", "Pet care", "Customization"],
-    status: "Live product",
-    statusTone: "active",
+    type: "Interactive NFT aquarium",
+    image: "/project/baofish/hero.png",
+    imageAlt: "A colorful digital fish swimming in a fantasy aquarium",
+    liveUrl: "https://fish.b4f.site",
+    contribution: "Designed and built the product experience around collectible companions, aquarium care, and environmental customization.",
+    impact: "Turns wallet-owned assets into a living, playful habitat with repeat reasons to return beyond collection value.",
+    stack: ["Web3", "NFT", "Interactive UI", "Wallet sync"],
+    tone: "aqua",
   },
   {
     id: "food",
-    number: "02",
     title: "BAO FOR FOOD",
-    type: "Mobile app",
-    tagline: "Hôm nay ăn gì?",
-    description:
-      "A fast food decision helper for everyday life—discover nearby restaurants, get smart suggestions, and reduce the friction of choosing where to eat.",
-    links: ["App Store", "Google Play"],
-    href: "https://food.b4f.site",
-    visualClass: "food-visual",
-    tags: ["Smart suggestions", "Nearby dining", "Daily habit"],
-    status: "In beta",
-    statusTone: "neutral",
+    type: "Mobile decision companion",
+    image: "/project/baoforfood/hero.png",
+    imageAlt: "BAO For Food brand artwork on a muted lime background",
+    liveUrl: "https://food.b4f.site",
+    contribution: "Shaped a focused mobile flow for nearby discovery and smart suggestions, reducing the effort of choosing a meal.",
+    impact: "Transforms a repetitive daily decision into a quick, approachable interaction designed to become a habit.",
+    stack: ["Mobile UX", "Location", "Recommendations", "Product design"],
+    tone: "lime",
   },
   {
     id: "football",
-    number: "03",
     title: "REDLOCK",
     type: "AI football simulation",
-    tagline: "Outthink. Outplay. Win.",
-    description:
-      "A strategy-first football experience where AI-driven matches, tactical decisions, and competitive progression turn every game into a calculated battle.",
-    links: ["football.b4f.site", "AI Match"],
-    href: "https://football.b4f.site",
-    visualClass: "football-visual",
-    tags: ["AI gameplay", "Tactics", "Match strategy"],
-    status: "Live project",
-    statusTone: "planned",
+    image: "/project/baofootball/hero.png",
+    imageAlt: "A neon football stadium visualizing an AI-driven match",
+    liveUrl: "https://football.b4f.site",
+    contribution: "Built a strategy-led product concept where tactical choices and AI match simulation drive competitive progression.",
+    impact: "Gives football strategy decisions visible consequences, making each match feel calculated rather than passive.",
+    stack: ["AI simulation", "Game systems", "Tactics", "Progression"],
+    tone: "blue",
   },
 ];
 
-const skills = [
-  {
-    number: "01",
-    title: "JavaScript & NodeJS",
-    focus: "Runtime & events",
-    description:
-      "Strong command of core language fundamentals, the event loop, asynchronous execution, and advanced event and process handling.",
-    concepts: [
-      "Core language",
-      "Event loop",
-      "Async processing",
-      "Event handling",
-    ],
-  },
-  {
-    number: "02",
-    title: "TypeScript",
-    focus: "OOP & type safety",
-    description:
-      "Comfortable applying object-oriented programming and TypeScript's type system to build clear, maintainable application structures.",
-    concepts: ["OOP", "Type modeling", "Interfaces", "Maintainability"],
-  },
-  {
-    number: "03",
-    title: "NestJS",
-    focus: "Backend architecture",
-    description:
-      "Builds modular backend applications with SOLID principles and dependency injection, keeping services independent and testable.",
-    concepts: ["SOLID", "Dependency injection", "Modules", "Service design"],
-  },
-  {
-    number: "04",
-    title: "React.js",
-    focus: "UI development",
-    description:
-      "Hands-on since university, mainly focused on UI development with a practical understanding of the DOM, components, state, and Redux.",
-    concepts: ["DOM", "Components", "State", "Redux"],
-  },
-  {
-    number: "05",
-    title: "MySQL",
-    focus: "Database internals",
-    description:
-      "Deep experience with indexing and leftmost-prefix rules, binary logs, log storage, and connection pools—including a 13 GB database with 10M+ records.",
-    concepts: ["Indexing", "Binary log", "Connection pools", "10M+ records"],
-  },
-  {
-    number: "06",
-    title: "PostgreSQL",
-    focus: "Query execution",
-    description:
-      "Understands how queries flow through parsing, planning, and execution, with attention to how operations use memory at runtime.",
-    concepts: ["Query planning", "Execution flow", "Memory usage", "SQL"],
-  },
-  {
-    number: "07",
-    title: "MongoDB",
-    focus: "Document modeling",
-    description:
-      "Understands JSON-like documents, collections, and when document storage fits a project, with hands-on multi-collection experience.",
-    concepts: ["Documents", "Collections", "Data modeling", "Multi-collection"],
-  },
-  {
-    number: "08",
-    title: "Redis",
-    focus: "Distributed coordination",
-    description:
-      "Uses core Redis commands, Pub/Sub for socket systems, and Redlock-based leader election for cron jobs across multi-process environments.",
-    concepts: ["Pub/Sub", "Socket systems", "Redlock", "Leader election"],
-  },
-  {
-    number: "09",
-    title: "RabbitMQ",
-    focus: "Message queues",
-    description:
-      "Foundational hands-on experience creating queues and implementing producer-consumer flows for asynchronous task processing.",
-    concepts: ["Queues", "Producers", "Consumers", "Async tasks"],
-  },
-  {
-    number: "10",
-    title: "Kafka",
-    focus: "Event streaming",
-    description:
-      "Foundational experience setting up topics and implementing producer-consumer message processing workflows.",
-    concepts: ["Topics", "Producers", "Consumers", "Message processing"],
-  },
-  {
-    number: "11",
-    title: "Docker",
-    focus: "Containers & networking",
-    description:
-      "Understands container isolation and lifecycle, with practical knowledge of bridge and NAT networking plus overlay networks for Docker Swarm clusters.",
-    concepts: [
-      "Containers",
-      "Bridge networking",
-      "NAT",
-      "Overlay networks",
-      "Docker Swarm",
-    ],
-  },
-  {
-    number: "12",
-    title: "Kubernetes",
-    focus: "Orchestration basics",
-    description:
-      "Completed practical labs and understands core container orchestration concepts including Pods, Deployments, and Services.",
-    concepts: ["Pods", "Deployments", "Services", "Container orchestration"],
-  },
-  {
-    number: "13",
-    title: "AWS",
-    focus: "Cloud infrastructure",
-    description:
-      "Hands-on experience building secure, scalable AWS infrastructure across compute, storage, networking, databases, caching, and serverless services.",
-    concepts: [
-      "EC2",
-      "RDS",
-      "KMS",
-      "S3",
-      "IAM",
-      "Lambda",
-      "CloudFront",
-      "ElastiCache",
-      "API Gateway",
-      "ELB",
-    ],
-  },
-  {
-    number: "14",
-    title: "Jenkins",
-    focus: "CI/CD automation",
-    description:
-      "Builds automated CI/CD pipelines for reliable application delivery, covering build, test, Docker packaging, and deployment workflows.",
-    concepts: ["Pipelines", "Build & test", "Docker", "Automated deployment"],
-  },
+const foodScreens = [
+  { src: "/project/baoforfood/login.jpg", alt: "BAO FOR FOOD account access screen" },
+  { src: "/project/baoforfood/main2.jpg", alt: "BAO FOR FOOD dish discovery screen" },
+  { src: "/project/baoforfood/main.jpg", alt: "BAO FOR FOOD suggestion loading screen" },
 ];
+
+function SectionHeading({ title, intro }: { title: string; intro: string }) {
+  return <div className="section-heading" data-reveal><h2>{title}</h2><p>{intro}</p></div>;
+}
+
+function ExperienceSection() {
+  return (
+    <section className="section experience-section" id="experience">
+      <SectionHeading title="Experience built in production." intro="Roles, systems, and outcomes—ordered for a quick technical read." />
+      <div className="experience-list">
+        {experiences.map((experience, index) => (
+          <article className="experience-item" key={`${experience.company}-${experience.period}`} data-reveal>
+            <div className="experience-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
+            <div className="experience-meta">
+              <time>{experience.period}</time>
+              {experience.companyUrl ? <a href={experience.companyUrl} target="_blank" rel="noreferrer">{experience.company} <ArrowUpRight aria-hidden="true" /></a> : <span>{experience.company}</span>}
+            </div>
+            <div className="experience-body">
+              <h3>{experience.role}</h3>
+              <p className="experience-context">{experience.context}</p>
+              <ul>{experience.achievements.map((achievement) => <li key={achievement}>{achievement}</li>)}</ul>
+              <div className="stack-list" aria-label="Technologies used">{experience.stack.map((technology) => <span key={technology}>{technology}</span>)}</div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function SkillsSection() {
   return (
-    <section className="skills section" id="skills">
-      <div className="section-label reveal">
-        <span>02</span>
-        <p>Technical depth</p>
+    <section className="section skills-section" id="skills">
+      <SectionHeading title="A focused technical toolkit." intro="Grouped by how I use the technology—not by how many logos fit on a page." />
+      <div className="technology-marquee" aria-label="Primary technologies">
+        <div className="marquee-track">{[...technologies, ...technologies].map((technology, index) => <span key={`${technology}-${index}`} aria-hidden={index >= technologies.length}>{technology}<i aria-hidden="true" /></span>)}</div>
       </div>
-      <div className="skills-heading reveal">
-        <h2>
-          Knowledge built through
-          <br />
-          <span>real systems and practice.</span>
-        </h2>
+      <div className="skill-groups">
+        {skillGroups.map((group, index) => (
+          <article className="skill-group" key={group.title} data-reveal>
+            <div className="skill-group-number">0{index + 1}</div>
+            <div className="skill-group-copy"><h3>{group.title}</h3><p>{group.description}</p></div>
+            <div className="skill-group-tools"><div className="primary-tools">{group.primary.map((tool) => <strong key={tool}>{tool}</strong>)}</div><p>{group.secondary.join(" · ")}</p></div>
+          </article>
+        ))}
       </div>
-      <div className="skill-grid">
-        {skills.map((skill) => (
-          <article className="skill-card reveal" key={skill.title}>
-            <div className="skill-card-head">
-              <span>{skill.number}</span>
-              <p>{skill.focus}</p>
+    </section>
+  );
+}
+
+function ProjectSection({ activeProject, onProjectChange }: { activeProject: number; onProjectChange: (index: number) => void }) {
+  const foodGalleryRef = useRef<HTMLDivElement>(null);
+  const scrollFoodGallery = (direction: -1 | 1) => {
+    const gallery = foodGalleryRef.current;
+    if (gallery) gallery.scrollBy({ left: direction * gallery.clientWidth * 0.62, behavior: "smooth" });
+  };
+
+  return (
+    <section className="section projects-section" id="projects">
+      <div className="projects-heading-row">
+        <SectionHeading title="Products with a point of view." intro="Each project pairs a clear user need with a deliberate technical and product contribution." />
+        <div className="project-controls" data-reveal>
+          <button type="button" onClick={() => onProjectChange((activeProject - 1 + projects.length) % projects.length)} aria-label="Show previous project"><ArrowLeft aria-hidden="true" /></button>
+          <span><b>{String(activeProject + 1).padStart(2, "0")}</b> / 0{projects.length}</span>
+          <button type="button" onClick={() => onProjectChange((activeProject + 1) % projects.length)} aria-label="Show next project"><ArrowRight aria-hidden="true" /></button>
+        </div>
+      </div>
+      <div className="project-stack">
+        {projects.map((project, index) => (
+          <article className={`project-case project-case--${project.tone}`} id={`project-${project.id}`} key={project.id} data-project-card>
+            <div className="project-media">
+              <img src={project.image} alt={project.imageAlt} loading="lazy" decoding="async" />
+              <div className="project-media-topline"><span>{project.type}</span><span>0{index + 1}</span></div>
             </div>
-            <h3>{skill.title}</h3>
-            <p className="skill-description">{skill.description}</p>
-            <div className="skill-concepts">
-              {skill.concepts.map((concept) => (
-                <span key={concept}>{concept}</span>
-              ))}
+            <div className="project-details">
+              <div className="project-title-row"><h3>{project.title}</h3><span>Live</span></div>
+              <div className="project-proof-grid">
+                <div><h4>Contribution</h4><p>{project.contribution}</p></div>
+                <div><h4>Product impact</h4><p>{project.impact}</p></div>
+              </div>
+              <div className="project-stack-list">{project.stack.map((technology) => <span key={technology}>{technology}</span>)}</div>
+              {project.id === "food" && (
+                <div className="food-screens">
+                  <div className="food-screens-heading"><span>Interface preview</span><div><button type="button" onClick={() => scrollFoodGallery(-1)} aria-label="Previous app screenshot"><ArrowLeft aria-hidden="true" /></button><button type="button" onClick={() => scrollFoodGallery(1)} aria-label="Next app screenshot"><ArrowRight aria-hidden="true" /></button></div></div>
+                  <div className="food-screens-track" ref={foodGalleryRef} tabIndex={0}>{foodScreens.map((screen) => <a href={screen.src} target="_blank" rel="noreferrer" key={screen.src}><img src={screen.src} alt={screen.alt} loading="lazy" decoding="async" /></a>)}</div>
+                </div>
+              )}
+              <div className="project-actions">
+                <a className="button button--primary" href={project.liveUrl} target="_blank" rel="noreferrer">View live <ArrowUpRight aria-hidden="true" /></a>
+                <a className="text-action" href="https://github.com/HuynhChiBao1109" target="_blank" rel="noreferrer"><GithubLogo aria-hidden="true" /> GitHub profile <ArrowUpRight aria-hidden="true" /></a>
+              </div>
             </div>
           </article>
         ))}
@@ -271,602 +217,147 @@ function SkillsSection() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
-  const foodGalleryRef = useRef<HTMLDivElement>(null);
+  const [activeSection, setActiveSection] = useState("top");
+  const [activeProject, setActiveProject] = useState(0);
+  const appRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      },
-      { threshold: 0.12 },
-    );
-
-    document
-      .querySelectorAll(".reveal")
-      .forEach((element) => observer.observe(element));
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) setActiveSection(entry.target.id); }), { rootMargin: "-24% 0px -66% 0px" });
+    ["top", ...navItems.map(({ href }) => href.slice(1))].forEach((id) => { const section = document.getElementById(id); if (section) observer.observe(section); });
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
-      {
-        rootMargin: "-25% 0px -65% 0px",
-        threshold: 0,
-      },
-    );
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
-    navItems.forEach(({ href }) => {
-      const section = document.querySelector(href);
-      if (section) observer.observe(section);
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+    let frame = 0;
+    let cancelled = false;
+    void document.fonts.ready.then(() => {
+      if (cancelled) return;
+      frame = window.requestAnimationFrame(() => document.querySelector(hash)?.scrollIntoView());
     });
-
-    return () => observer.disconnect();
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+    };
   }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle("menu-is-open", menuOpen);
+    return () => document.body.classList.remove("menu-is-open");
+  }, [menuOpen]);
+
+  useGSAP(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.from("[data-hero-reveal]", { y: 34, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out" });
+    gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((element) => gsap.from(element, { y: 30, opacity: 0, duration: 0.85, ease: "power3.out", scrollTrigger: { trigger: element, start: "top 86%", once: true } }));
+    const words = gsap.utils.toArray<HTMLElement>(".about-statement span");
+    gsap.fromTo(words, { opacity: 0.13 }, { opacity: 1, stagger: 0.08, ease: "none", scrollTrigger: { trigger: ".about-statement", start: "top 78%", end: "bottom 42%", scrub: true } });
+    gsap.utils.toArray<HTMLElement>("[data-project-card]").forEach((card, index, cards) => {
+      if (index < cards.length - 1) gsap.to(card, { scale: 0.94, opacity: 0.42, ease: "none", scrollTrigger: { trigger: cards[index + 1], start: "top 78%", end: "top 22%", scrub: true } });
+    });
+  }, { scope: appRef });
 
   const copyEmail = async () => {
-    await navigator.clipboard.writeText("baohc110902@gmail.com");
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
+    try {
+      await navigator.clipboard.writeText("baohc110902@gmail.com");
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.location.href = "mailto:baohc110902@gmail.com";
+    }
   };
 
-  const scrollFoodGallery = (direction: -1 | 1) => {
-    const gallery = foodGalleryRef.current;
-    if (!gallery) return;
-
-    gallery.scrollBy({
-      left: direction * gallery.clientWidth * 0.72,
-      behavior: "smooth",
-    });
+  const selectProject = (index: number) => {
+    setActiveProject(index);
+    document.getElementById(`project-${projects[index].id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  const aboutWords = "I work where backend architecture, data performance, and infrastructure meet—turning complex system behavior into software teams can operate with confidence.".split(" ");
 
   return (
-    <main>
+    <main className="site-shell overflow-x-hidden w-full max-w-full" ref={appRef}>
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Back to top">
-          B<span>.</span>
-        </a>
-
-        <nav
-          className={menuOpen ? "nav open" : "nav"}
-          aria-label="Main navigation"
-        >
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className={activeSection === item.href.slice(1) ? "active" : undefined}
-              aria-current={activeSection === item.href.slice(1) ? "location" : undefined}
-              onClick={() => {
-                setActiveSection(item.href.slice(1));
-                setMenuOpen(false);
-              }}
-            >
-              {item.label}
-            </a>
-          ))}
+        <a className="brand" href="#top" aria-label="Bao, back to top">BAO<span>/</span></a>
+        <nav className={menuOpen ? "site-nav is-open" : "site-nav"} aria-label="Main navigation">
+          {navItems.map((item) => <a href={item.href} key={item.href} className={activeSection === item.href.slice(1) ? "is-active" : undefined} aria-current={activeSection === item.href.slice(1) ? "location" : undefined} onClick={() => setMenuOpen(false)}>{item.label}</a>)}
         </nav>
-
-        <div className="header-links" aria-label="Quick contact links">
-          <a
-            href="https://github.com/HuynhChiBao1109"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Github size={15} /> GitHub
-          </a>
-          <a href="tel:+84825999871">
-            <Phone size={15} /> 0825 999 871
-          </a>
-        </div>
-        <button
-          className="menu-button"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-          aria-expanded={menuOpen}
-        >
-          {menuOpen ? <X /> : <Menu />}
-        </button>
+        <a className="header-contact" href="mailto:baohc110902@gmail.com">Available for a conversation <ArrowUpRight aria-hidden="true" /></a>
+        <button className="menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen}>{menuOpen ? <X aria-hidden="true" /> : <List aria-hidden="true" />}</button>
       </header>
 
-      <section className="hero" id="top">
-        <div className="hero-grid" aria-hidden="true" />
-        <div className="hero-copy reveal">
-          <p className="eyebrow">
-            <span /> Backend &amp; DevOps Engineer
-          </p>
-          <h1>
-            Server systems
-            <br />
-            <span>engineered to scale.</span>
-          </h1>
-          <p className="hero-intro">
-            I'm <strong>Huynh Chi Bao</strong>, a backend engineer focused on
-            server architecture, distributed systems, database performance, and
-            cloud infrastructure—building reliable platforms that stay fast
-            under real-world load.
-          </p>
-          <div
-            className="hero-focus"
-            aria-label="Server engineering specialties"
-          >
-            <span>Server architecture</span>
-            <span>Distributed systems</span>
-            <span>Database performance</span>
-          </div>
-          <div className="hero-actions">
-            <a className="button primary" href="#experience">
-              Explore server work <ArrowDownRight size={18} />
-            </a>
-            <a
-              className="text-link"
-              href="https://github.com/HuynhChiBao1109"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Github size={19} /> GitHub <ArrowUpRight size={15} />
-            </a>
-            <a className="text-link" href="tel:+84825999871">
-              <Phone size={18} /> 0825 999 871
-            </a>
-          </div>
-        </div>
-
-        <div className="hero-panel reveal" aria-label="Profile highlights">
-          <div className="hero-panel__glass">
-            <p className="hero-panel__kicker">Build focus</p>
-            <h2>Reliable systems with product instinct.</h2>
-            <div className="hero-panel__metrics">
-              <div>
-                <strong>90%</strong>
-                <span>Query optimization</span>
-              </div>
-              <div>
-                <strong>4+</strong>
-                <span>Cloud stacks</span>
-              </div>
-            </div>
-            <a
-              className="cv-download"
-              href="/Huỳnh Chí Bảo - CV.pdf"
-              download="Huynh-Chi-Bao-CV.pdf"
-              aria-label="Download Huynh Chi Bao's CV"
-            >
-              <Download size={15} />
-              Download CV
-            </a>
-          </div>
-        </div>
-
-        <div className="hero-bottom">
-          <span>Scroll to explore</span>
-          <div className="scroll-line" />
-          <span className="hero-index">01 / 04</span>
-        </div>
-      </section>
-
-      <section className="experience section" id="experience">
-        <div className="section-label reveal">
-          <span>01</span>
-          <p>Selected experience</p>
-        </div>
-
-        <article className="role featured reveal">
-          <div className="role-meta">
-            <p>Nov 2024 — Present</p>
-            <a href="https://innorix.com" target="_blank" rel="noreferrer">
-              INNORIX Vietnam <ArrowUpRight size={15} />
-            </a>
-          </div>
-          <div className="role-content">
-            <div className="role-title">
-              <p>Current role</p>
-              <h2>Backend Developer</h2>
-            </div>
-            <p className="role-summary">
-              Contributing to Exacoola, an Express.js-based file transfer
-              platform that handles multi-GB transfers across major operating
-              systems and cloud storage providers.
-            </p>
-            <ul>
-              <li>
-                <ChevronRight />
-                <span>
-                  Designed distributed RabbitMQ workflows for background jobs,
-                  agent commands and transfer processing, then extracted
-                  monitoring into an independent gRPC microservice.
-                </span>
-              </li>
-              <li>
-                <ChevronRight />
-                <span>
-                  Reduced complex MySQL query execution time by more than 90%
-                  using CTEs, indexing, transaction management, deadlock
-                  analysis and connection pooling in a multi-tenant system.
-                </span>
-              </li>
-              <li>
-                <ChevronRight />
-                <span>
-                  Built scalable real-time communication with Socket.IO and
-                  Redis Pub/Sub; maintained K3s cloud and Docker Swarm
-                  on-premise environments with Jenkins CI/CD pipelines.
-                </span>
-              </li>
-              <li>
-                <ChevronRight />
-                <span>
-                  Engineered memory-efficient object storage transfers with
-                  chunking, Node.js Streams and pre-signed URLs, and optimized
-                  storage costs through S3 lifecycle policies.
-                </span>
-              </li>
-            </ul>
-            <div className="role-tags">
-              {[
-                "Express.js",
-                "Socket.IO",
-                "Redis",
-                "MySQL",
-                "RabbitMQ",
-                "gRPC",
-                "K3s",
-                "Docker Swarm",
-                "Jenkins",
-              ].map((tag) => (
-                <span key={tag}>{tag}</span>
-              ))}
+      <div id="main-content">
+        <section className="hero" id="top">
+          <div className="hero-ambient" aria-hidden="true" />
+          <div className="hero-copy">
+            <p className="hero-role" data-hero-reveal>Backend and DevOps engineer <span>Ho Chi Minh City</span></p>
+            <h1 className="max-w-6xl w-full" data-hero-reveal>
+              <span>Backend systems</span>
+              <span className="hero-title-middle">built <i className="hero-inline-image" aria-hidden="true" /> to stay</span>
+              <span className="hero-title-accent">fast under load.</span>
+            </h1>
+            <div className="hero-support" data-hero-reveal>
+              <p>I’m Huynh Chi Bao. I design distributed services, tune data-heavy systems, and build the infrastructure that keeps them dependable.</p>
+              <div className="hero-actions"><a className="button button--primary" href="#experience">Explore my work <ArrowDownRight aria-hidden="true" /></a><a className="text-action" href="/Huỳnh Chí Bảo - CV.pdf" download="Huynh-Chi-Bao-CV.pdf"><DownloadSimple aria-hidden="true" /> Download CV</a></div>
             </div>
           </div>
-        </article>
+          <aside className="hero-monogram" data-hero-reveal aria-label="Bao, currently a Backend Developer at INNORIX Vietnam">
+            <strong>BAO</strong>
+            <div><span>Currently at INNORIX Vietnam</span><span>Backend Developer</span></div>
+          </aside>
+          <a className="hero-scroll" href="#about" aria-label="Scroll to the About section"><span>Scroll</span><i aria-hidden="true" /></a>
+        </section>
 
-        <article className="role reveal">
-          <div className="role-meta">
-            <p>Jun 2024 — Dec 2024</p>
-            <span>Freelance</span>
+        <section className="section about-section" id="about">
+          <div className="about-intro">
+            <p className="section-kicker" data-reveal>How I think about engineering</p>
+            <p className="about-statement">{aboutWords.map((word, index) => <span key={`${word}-${index}`}>{word} </span>)}</p>
           </div>
-          <div className="role-content">
-            <div className="role-title">
-              <p>Freelance role</p>
-              <h2>Backend Developer</h2>
-            </div>
-            <p className="role-summary">
-              Developed a NestJS API Gateway that integrated APIs from multiple
-              transportation providers behind one standardized interface, with
-              a modular architecture grounded in OOP and SOLID principles.
-            </p>
-            <div className="role-tags">
-              {["NestJS", "TypeScript", "API Gateway", "OOP", "SOLID"].map(
-                (tag) => (
-                  <span key={tag}>{tag}</span>
-                ),
-              )}
-            </div>
+          <div className="about-bento">
+            <article className="about-bento-main" data-reveal><p>My work is strongest when scale is not an abstract requirement but a measurable constraint: multi-GB transfers, 10M+ database records, multi-process coordination, and hybrid deployment environments.</p><a href="#experience">Read the production evidence <ArrowDownRight aria-hidden="true" /></a></article>
+            <article className="about-bento-proof" data-reveal><strong>90%+</strong><p>reduction in complex MySQL query execution time</p></article>
+            <article className="about-bento-proof" data-reveal><strong>10M+</strong><p>records handled in a 13 GB production database</p></article>
+            <article className="about-bento-profile" data-reveal><div><MapPin aria-hidden="true" /><span>Ho Chi Minh City, Vietnam</span></div><p>B.S. Software Engineering, FPT University · 2020–2025</p><a href="/philosophy-talk-12-certificate-restored.png" target="_blank" rel="noreferrer">View certificate <ArrowUpRight aria-hidden="true" /></a></article>
           </div>
-        </article>
+        </section>
 
-        <article className="role reveal">
-          <div className="role-meta">
-            <p>Sep 2023 — Feb 2024</p>
-            <span>FPT Software</span>
-          </div>
-          <div className="role-content compact">
-            <div className="role-title">
-              <p>Internship</p>
-              <h2>Frontend Developer</h2>
-            </div>
-            <p className="role-summary">
-              Developed the UI for a React.js team project in a five-person
-              Agile team, contributed to database design, and coordinated API
-              configuration and integration with backend developers.
-            </p>
-            <div className="role-tags">
-              {["React.js", "Agile", "API Integration", "Database Design"].map(
-                (tag) => (
-                  <span key={tag}>{tag}</span>
-                ),
-              )}
-            </div>
-          </div>
-        </article>
-      </section>
+        <ExperienceSection />
+        <SkillsSection />
+        <ProjectSection activeProject={activeProject} onProjectChange={selectProject} />
+      </div>
 
-      <SkillsSection />
-
-      <section className="projects section" id="projects">
-        <div className="section-label reveal">
-          <span>03</span>
-          <p>Personal projects</p>
-        </div>
-
-        <div className="projects-heading reveal">
-          <p className="eyebrow">
-            <span /> Currently building
-          </p>
-          <h2>
-            Ideas turned into
-            <br />
-            <em>real products.</em>
-          </h2>
-        </div>
-
-        <div className="project-grid">
-          {personalProjects.map((project) => {
-            const isFoodProject = project.id === "food";
-
-            return isFoodProject ? (
-              <article className="project-card project-card--food reveal" key={project.id}>
-                <div className="project-card-top">
-                  <span className="project-number">{project.number}</span>
-                  <span className={`project-status ${project.statusTone}`}>
-                    <i /> {project.status}
-                  </span>
-                </div>
-
-                <div className="food-gallery">
-                  <div className="food-gallery-toolbar">
-                    <span>App preview · Swipe to explore</span>
-                    <div className="food-gallery-controls">
-                      <button
-                        type="button"
-                        onClick={() => scrollFoodGallery(-1)}
-                        aria-label="View previous BAO FOR FOOD screenshot"
-                      >
-                        <ArrowLeft size={15} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => scrollFoodGallery(1)}
-                        aria-label="View next BAO FOR FOOD screenshot"
-                      >
-                        <ArrowRight size={15} />
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    className="food-gallery-track"
-                    ref={foodGalleryRef}
-                    aria-label="BAO FOR FOOD app screenshots"
-                    tabIndex={0}
-                  >
-                    {baoForFoodScreens.map((screen, index) => (
-                      <a
-                        className="food-gallery-slide"
-                        href={screen.src}
-                        target="_blank"
-                        rel="noreferrer"
-                        key={screen.src}
-                        aria-label={`Open ${screen.alt.toLowerCase()}`}
-                      >
-                        <img
-                          src={screen.src}
-                          alt={screen.alt}
-                          width="828"
-                          height="1792"
-                          loading="lazy"
-                          decoding="async"
-                          draggable="false"
-                        />
-                        <span>
-                          <i>{String(index + 1).padStart(2, "0")}</i>
-                          {screen.label}
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="project-content">
-                  <div className="project-type">
-                    <Smartphone size={15} /> {project.type}
-                  </div>
-                  <h3>{project.title}</h3>
-                  <p className="project-subtitle">{project.tagline}</p>
-                  <p>{project.description}</p>
-                  <div className="project-features">
-                    {project.tags.map((tag) => (
-                      <span key={tag}>
-                        {tag === "Smart suggestions" ? <Sparkles size={14} /> : tag === "Nearby dining" ? <MapPin size={14} /> : <Check size={14} />} {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="project-release">
-                    <span>{project.status}</span>
-                    <div>
-                      {project.links.map((link) => (
-                        <span key={link}>{link}</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ) : (
-              <a
-                className={`project-card project-card--${project.id} reveal`}
-                href={project.href}
-                target="_blank"
-                rel="noreferrer"
-                key={project.id}
-                aria-label={`Open ${project.title} project`}
-              >
-                <div className="project-card-top">
-                  <span className="project-number">{project.number}</span>
-                  <span className={`project-status ${project.statusTone}`}>
-                    <i /> {project.status}
-                  </span>
-                </div>
-
-                <div className={`project-visual ${project.visualClass}`} aria-hidden="true">
-                  {project.id === "fish" ? (
-                    <>
-                      <div className="fish-scene">
-                        <span className="fish-orb fish-orb--one" />
-                        <span className="fish-orb fish-orb--two" />
-                        <span className="fish-school fish-school--one" />
-                        <span className="fish-school fish-school--two" />
-                        <span className="fish-bubble bubble-one" />
-                        <span className="fish-bubble bubble-two" />
-                      </div>
-                      <div className="fish-badge">
-                        <Sparkles size={24} />
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="pitch-lines">
-                        <span className="player p-one" />
-                        <span className="player p-two" />
-                        <span className="player p-three" />
-                        <span className="player p-four" />
-                        <span className="strategy-line line-one" />
-                        <span className="strategy-line line-two" />
-                      </div>
-                      <div className="trophy-mark">
-                        <Trophy size={34} />
-                      </div>
-                    </>
-                  )}
-                </div>
-
-                <div className="project-content">
-                  <div className="project-type">
-                    {project.id === "fish" ? <Sparkles size={15} /> : <ShieldCheck size={15} />} {project.type}
-                  </div>
-                  <h3>{project.title}</h3>
-                  <p className="project-subtitle">{project.tagline}</p>
-                  <p>{project.description}</p>
-                  <div className="project-features">
-                    {project.tags.map((tag) => (
-                      <span key={tag}>
-                        {project.id === "fish" ? <Sparkles size={14} /> : <Trophy size={14} />} {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="project-release">
-                    <span>{project.status}</span>
-                    <div>
-                      {project.links.map((link) => (
-                        <span key={link}>{link}</span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </a>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="education section" id="education">
-        <div className="section-label reveal">
-          <span>04</span>
-          <p>Education</p>
-        </div>
-        <div className="education-card reveal">
+      <footer className="site-footer" id="contact">
+        <div className="footer-cta" data-reveal>
           <div>
-            <span className="edu-year">2020 — 2025</span>
-            <h2>
-              Bachelor of
-              <br />
-              Software Engineering
-            </h2>
+            <p>Available for backend and platform engineering opportunities</p>
+            <h2>Let’s talk about<br />the system behind it.</h2>
           </div>
-          <div className="edu-school">
-            <p>FPT University</p>
-            <span>
-              <MapPin size={15} /> Ho Chi Minh City, Vietnam
-            </span>
-          </div>
-          <div className="edu-mark">FPT</div>
-        </div>
-
-        <article className="certificate-card reveal">
-          <a
-            className="certificate-preview"
-            href="/philosophy-talk-12-certificate-restored.png"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="View Philosophy Talk 12 certificate"
-          >
-            <img
-              src="/philosophy-talk-12-certificate-restored.png"
-              alt="Philosophy Talk 12 certificate awarded to Huynh Chi Bao by FPT University"
-              width="1448"
-              height="1086"
-              loading="lazy"
-              decoding="async"
-            />
-            <span>
-              View full certificate <ArrowUpRight size={15} />
-            </span>
+          <a href="mailto:baohc110902@gmail.com">
+            <span>baohc110902@gmail.com</span>
+            <ArrowUpRight aria-hidden="true" />
           </a>
-
-          <div className="certificate-content">
-            <div className="certificate-icon">
-              <Award size={22} />
-            </div>
-            <p className="certificate-label">Certificate · FPT University</p>
-            <h3>
-              Philosophy
-              <br />
-              Talk 12
-            </h3>
-            <p className="certificate-description">
-              Recognized for delivering a meaningful presentation and fostering
-              a profound love of philosophy during the Summer 2024 term.
-            </p>
-            <div className="certificate-meta">
-              <span>17 Jun 2024</span>
-              <span>FPT University HCMC</span>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section className="contact section" id="contact">
-        <div className="contact-inner reveal">
-          <p className="eyebrow">
-            <span /> Have a project in mind?
-          </p>
-          <h2>
-            Let's build something
-            <br />
-            <em>that works.</em>
-          </h2>
-          <div className="contact-actions">
-            <a className="button light" href="mailto:baohc110902@gmail.com">
-              <Mail size={18} /> Get in touch <ArrowUpRight size={18} />
-            </a>
-            <button className="copy-button" onClick={copyEmail}>
-              {copied ? <Check size={17} /> : <Copy size={17} />}
+        </div>
+        <div className="footer-bottom">
+          <a className="brand brand--footer" href="#top" aria-label="Bao, back to top">BAO<span>/</span></a>
+          <p>Huynh Chi Bao · Backend & DevOps Engineer</p>
+          <div className="footer-links">
+            <a href="https://github.com/HuynhChiBao1109" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="tel:+84825999871">0825 999 871</a>
+            <button type="button" onClick={copyEmail} aria-live="polite">
+              {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
               {copied ? "Email copied" : "Copy email"}
             </button>
+            <span>© 2026</span>
           </div>
         </div>
-        <footer>
-          <a className="brand" href="#top">
-            B<span>.</span>
-          </a>
-          <p>Huynh Chi Bao © 2026</p>
-          <div>
-            <a
-              href="https://github.com/HuynhChiBao1109"
-              target="_blank"
-              rel="noreferrer"
-            >
-              GitHub
-            </a>
-            <a href="tel:+84825999871">0825 999 871</a>
-          </div>
-        </footer>
-      </section>
+      </footer>
     </main>
   );
 }
